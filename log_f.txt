@@ -1,0 +1,1705 @@
+========================================
+  SensiNerveX v3.0  Node 0x01
+  Vibration Anomaly Detection
+  STM32F405RGT6 @ 168 MHz
+  SD: SDIO 4-bit (PC8-12, PD2)
+========================================
+
+[MAIN] MPU-6050 detected OK
+[SDIO] 4-bit bus configured
+[SDIO] Init OK — CardType=1 BlockNbr=124735488 BlockSize=512
+[SDIO] Read sector=0 count=1
+[SDIO] Read sector=2048 count=1
+[SDIO] Read sector=2049 count=1
+[SDIO] Read sector=32576 count=1
+[SDIO] Read sector=2112 count=1
+[SDIO] Write sector=2112 count=1
+[SDIO] Write sector=17344 count=1
+[SDIO] Write FAILED err=0x00000004
+[SDIO] Write sector=34880 count=1
+[SDIO] Write FAILED err=0x00000004
+[SD] Cannot open ANOMLOG.CSV: 1
+[INIT] SD card FAIL — logging disabled
+[INIT] SensiNerveX v3.0 Node 0x01 ready.
+[INIT] Send 'C' to begin calibration.
+[IMU] MPU-6050 init OK (±8g, ±500dps, 200Hz)
+[MAIN] TIM6 started @ 200 Hz
+[MAIN] UART commands:
+  C=Calibrate  T=Train  S=Status  R=ResetWeights
+  W=Save  L=Load  H=SetThreshold  N=ToggleRawLog
+
+[STATS] state=IDLE windows=0 anomalies=0 thr=0.000000
+[STATS] state=IDLE windows=0 anomalies=0 thr=0.000000
+[STATS] state=IDLE windows=0 anomalies=0 thr=0.000000
+[STATS] state=IDLE windows=0 anomalies=0 thr=0.000000
+---- Sent utf8 encoded message: "C" ----
+[RX] 0x43 'C'
+[CMD] Received 'C'
+[CMD] Starting calibration...
+[FSM] MONITOR → COLLECT
+[COLLECT] window=1
+[COLLECT] window=2
+[STATS] state=COLLECT windows=2 anomalies=0 thr=0.000670
+[COLLECT] window=3
+[COLLECT] window=4
+[COLLECT] window=5
+[COLLECT] window=6
+[STATS] state=COLLECT windows=6 anomalies=0 thr=0.000670
+[COLLECT] window=7
+[COLLECT] window=8
+[COLLECT] window=9
+[COLLECT] window=10
+[STATS] state=COLLECT windows=10 anomalies=0 thr=0.000670
+[COLLECT] window=11
+[COLLECT] window=12
+[COLLECT] window=13
+[COLLECT] window=14
+[STATS] state=COLLECT windows=14 anomalies=0 thr=0.000670
+[COLLECT] window=15
+[COLLECT] window=16
+[COLLECT] window=17
+[COLLECT] window=18
+[STATS] state=COLLECT windows=18 anomalies=0 thr=0.000670
+[COLLECT] window=19
+[COLLECT] window=20
+[COLLECT] window=21
+[COLLECT] window=22
+[STATS] state=COLLECT windows=22 anomalies=0 thr=0.000670
+[COLLECT] window=23
+[COLLECT] window=24
+[COLLECT] window=25
+[COLLECT] window=26
+[STATS] state=COLLECT windows=26 anomalies=0 thr=0.000670
+[COLLECT] window=27
+[COLLECT] window=28
+[COLLECT] window=29
+[COLLECT] window=30
+[COLLECT] window=31
+[STATS] state=COLLECT windows=31 anomalies=0 thr=0.000670
+[COLLECT] window=32
+[COLLECT] window=33
+[COLLECT] window=34
+[COLLECT] window=35
+[STATS] state=COLLECT windows=35 anomalies=0 thr=0.000670
+[COLLECT] window=36
+[COLLECT] window=37
+[COLLECT] window=38
+[COLLECT] window=39
+[STATS] state=COLLECT windows=39 anomalies=0 thr=0.000670
+[COLLECT] window=40
+[COLLECT] window=41
+[COLLECT] window=42
+[COLLECT] window=43
+[STATS] state=COLLECT windows=43 anomalies=0 thr=0.000670
+[COLLECT] window=44
+[COLLECT] window=45
+[COLLECT] window=46
+[COLLECT] window=47
+[STATS] state=COLLECT windows=47 anomalies=0 thr=0.000670
+[COLLECT] window=48
+[COLLECT] window=49
+[COLLECT] window=50
+[COLLECT] window=51
+[STATS] state=COLLECT windows=51 anomalies=0 thr=0.000670
+[COLLECT] window=52
+[COLLECT] window=53
+[COLLECT] window=54
+[COLLECT] window=55
+[STATS] state=COLLECT windows=55 anomalies=0 thr=0.000670
+[COLLECT] window=56
+[COLLECT] window=57
+[COLLECT] window=58
+[COLLECT] window=59
+[STATS] state=COLLECT windows=59 anomalies=0 thr=0.000670
+[COLLECT] window=60
+[COLLECT] window=61
+[COLLECT] window=62
+[COLLECT] window=63
+[STATS] state=COLLECT windows=63 anomalies=0 thr=0.000670
+[COLLECT] window=64
+[COLLECT] 64 normal windows buffered. Starting calibration.
+[FSM] COLLECT → CALIBRATE
+[CALIB] window=1 mse=0.000671
+[CALIB] window=2 mse=0.000899
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=3 mse=0.001678
+[CALIB] window=4 mse=0.001806
+[CALIB] window=5 mse=0.001187
+[CALIB] window=6 mse=0.000742
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=7 mse=0.000793
+[CALIB] window=8 mse=0.000936
+[CALIB] window=9 mse=0.001493
+[CALIB] window=10 mse=0.001346
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=11 mse=0.000638
+[CALIB] window=12 mse=0.000694
+[CALIB] window=13 mse=0.000156
+[CALIB] window=14 mse=0.000286
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=15 mse=0.001037
+[CALIB] window=16 mse=0.001489
+[CALIB] window=17 mse=0.001086
+[CALIB] window=18 mse=0.001269
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=19 mse=0.001263
+[CALIB] window=20 mse=0.001062
+[CALIB] window=21 mse=0.000969
+[CALIB] window=22 mse=0.000757
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=23 mse=0.001017
+[CALIB] window=24 mse=0.000683
+[CALIB] window=25 mse=0.000330
+[CALIB] window=26 mse=0.000951
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=27 mse=0.001741
+[CALIB] window=28 mse=0.001216
+[CALIB] window=29 mse=0.000863
+[CALIB] window=30 mse=0.000731
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=31 mse=0.000897
+[CALIB] window=32 mse=0.000911
+[CALIB] window=33 mse=0.000977
+[CALIB] window=34 mse=0.000899
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=35 mse=0.000689
+[CALIB] window=36 mse=0.000242
+[CALIB] window=37 mse=0.000212
+[CALIB] window=38 mse=0.000474
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=39 mse=0.000876
+[CALIB] window=40 mse=0.001570
+[CALIB] window=41 mse=0.001789
+[CALIB] window=42 mse=0.001011
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=43 mse=0.001066
+[CALIB] window=44 mse=0.000951
+[CALIB] window=45 mse=0.000818
+[CALIB] window=46 mse=0.000818
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=47 mse=0.000348
+[CALIB] window=48 mse=0.000750
+[CALIB] window=49 mse=0.000780
+[CALIB] window=50 mse=0.000642
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=51 mse=0.000508
+[CALIB] window=52 mse=0.000307
+[CALIB] window=53 mse=0.000149
+[CALIB] window=54 mse=0.000580
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=55 mse=0.000402
+[CALIB] window=56 mse=0.000438
+[CALIB] window=57 mse=0.000693
+[CALIB] window=58 mse=0.000869
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=59 mse=0.001015
+[CALIB] window=60 mse=0.001791
+[CALIB] window=61 mse=0.002416
+[CALIB] window=62 mse=0.001363
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=63 mse=0.000739
+[CALIB] window=64 mse=0.000872
+[CALIB] window=65 mse=0.002119
+[CALIB] window=66 mse=0.001203
+[CALIB] window=67 mse=0.001033
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=68 mse=0.000548
+[CALIB] window=69 mse=0.001247
+[CALIB] window=70 mse=0.001793
+[CALIB] window=71 mse=0.001055
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=72 mse=0.001343
+[CALIB] window=73 mse=0.000583
+[CALIB] window=74 mse=0.001252
+[CALIB] window=75 mse=0.001672
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=76 mse=0.000724
+[CALIB] window=77 mse=0.001252
+[CALIB] window=78 mse=0.000678
+[CALIB] window=79 mse=0.000795
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=80 mse=0.001418
+[CALIB] window=81 mse=0.000540
+[CALIB] window=82 mse=0.001591
+[CALIB] window=83 mse=0.000970
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=84 mse=0.001215
+[CALIB] window=85 mse=0.000874
+[CALIB] window=86 mse=0.001855
+[CALIB] window=87 mse=0.000967
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=88 mse=0.000763
+[CALIB] window=89 mse=0.001399
+[CALIB] window=90 mse=0.001388
+[CALIB] window=91 mse=0.001216
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=92 mse=0.001063
+[CALIB] window=93 mse=0.001438
+[CALIB] window=94 mse=0.001269
+[CALIB] window=95 mse=0.001035
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=96 mse=0.001230
+[CALIB] window=97 mse=0.000678
+[CALIB] window=98 mse=0.001023
+[CALIB] window=99 mse=0.000879
+[STATS] state=CALIBRATE windows=64 anomalies=0 thr=0.000670
+[CALIB] window=100 mse=0.001101
+[CALIB] Done. MSE mean=0.000999 std=0.000437 threshold=0.002310
+[FSM] CALIBRATE → MONITOR
+[MONITOR] normal mse=0.001067
+[MONITOR] normal mse=0.001084
+[MONITOR] normal mse=0.000761
+[STATS] state=MONITOR windows=67 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001591
+[MONITOR] normal mse=0.001101
+[MONITOR] normal mse=0.000868
+[MONITOR] normal mse=0.001841
+[STATS] state=MONITOR windows=71 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001009
+[MONITOR] normal mse=0.000839
+[MONITOR] normal mse=0.001321
+[MONITOR] normal mse=0.000822
+[STATS] state=MONITOR windows=75 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001366
+---- Sent utf8 encoded message: "T" ----
+[RX] 0x54 'T'
+[CMD] Received 'T'
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 12 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001139
+[TRAIN] epoch=1 loss=0.001136
+[TRAIN] epoch=2 loss=0.001133
+[TRAIN] epoch=3 loss=0.001130
+[TRAIN] epoch=4 loss=0.001127
+[TRAIN] epoch=5 loss=0.001124
+[TRAIN] epoch=6 loss=0.001122
+[TRAIN] epoch=7 loss=0.001119
+[TRAIN] epoch=8 loss=0.001116
+[TRAIN] epoch=9 loss=0.001113
+[TRAIN] Done. Cycles=9563003 (~56 ms) steps=110
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000862
+[MONITOR] normal mse=0.001039
+[MONITOR] normal mse=0.001474
+[STATS] state=MONITOR windows=79 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001486
+[MONITOR] normal mse=0.001142
+[MONITOR] normal mse=0.001330
+[MONITOR] normal mse=0.000589
+[STATS] state=MONITOR windows=83 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001030
+[MONITOR] normal mse=0.000600
+[MONITOR] normal mse=0.001193
+[MONITOR] normal mse=0.000860
+[STATS] state=MONITOR windows=87 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001368
+[MONITOR] normal mse=0.000672
+[MONITOR] normal mse=0.001068
+[MONITOR] normal mse=0.000453
+[STATS] state=MONITOR windows=91 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000810
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000998
+[TRAIN] epoch=1 loss=0.000995
+[TRAIN] epoch=2 loss=0.000992
+[TRAIN] epoch=3 loss=0.000989
+[TRAIN] epoch=4 loss=0.000986
+[TRAIN] epoch=5 loss=0.000983
+[TRAIN] epoch=6 loss=0.000980
+[TRAIN] epoch=7 loss=0.000978
+[TRAIN] epoch=8 loss=0.000975
+[TRAIN] epoch=9 loss=0.000972
+[TRAIN] Done. Cycles=11088823 (~66 ms) steps=120
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.001000
+[MONITOR] normal mse=0.000662
+[MONITOR] normal mse=0.001131
+[STATS] state=MONITOR windows=95 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001261
+[MONITOR] normal mse=0.001876
+[MONITOR] normal mse=0.001004
+[MONITOR] normal mse=0.001381
+[STATS] state=MONITOR windows=99 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000583
+[MONITOR] normal mse=0.001256
+[MONITOR] normal mse=0.000794
+[MONITOR] normal mse=0.001198
+[STATS] state=MONITOR windows=103 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000893
+[MONITOR] normal mse=0.000886
+[MONITOR] normal mse=0.001319
+[MONITOR] normal mse=0.000818
+[STATS] state=MONITOR windows=107 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000956
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001064
+[TRAIN] epoch=1 loss=0.001061
+[TRAIN] epoch=2 loss=0.001059
+[TRAIN] epoch=3 loss=0.001057
+[TRAIN] epoch=4 loss=0.001055
+[TRAIN] epoch=5 loss=0.001052
+[TRAIN] epoch=6 loss=0.001050
+[TRAIN] epoch=7 loss=0.001048
+[TRAIN] epoch=8 loss=0.001046
+[TRAIN] epoch=9 loss=0.001044
+[TRAIN] Done. Cycles=11084559 (~65 ms) steps=130
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000821
+[MONITOR] normal mse=0.001033
+[STATS] state=MONITOR windows=110 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000690
+[MONITOR] normal mse=0.000900
+[MONITOR] normal mse=0.000988
+[MONITOR] normal mse=0.000691
+[STATS] state=MONITOR windows=114 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001113
+[MONITOR] normal mse=0.000495
+[MONITOR] normal mse=0.000982
+[MONITOR] normal mse=0.000492
+[MONITOR] normal mse=0.000954
+[STATS] state=MONITOR windows=119 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000563
+[MONITOR] normal mse=0.000949
+[MONITOR] normal mse=0.000851
+[MONITOR] normal mse=0.000710
+[STATS] state=MONITOR windows=123 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000959
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000824
+[TRAIN] epoch=1 loss=0.000821
+[TRAIN] epoch=2 loss=0.000818
+[TRAIN] epoch=3 loss=0.000815
+[TRAIN] epoch=4 loss=0.000811
+[TRAIN] epoch=5 loss=0.000808
+[TRAIN] epoch=6 loss=0.000804
+[TRAIN] epoch=7 loss=0.000801
+[TRAIN] epoch=8 loss=0.000797
+[TRAIN] epoch=9 loss=0.000793
+[TRAIN] Done. Cycles=11084571 (~65 ms) steps=140
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000737
+[MONITOR] normal mse=0.000607
+[STATS] state=MONITOR windows=126 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001088
+[MONITOR] normal mse=0.000614
+[MONITOR] normal mse=0.000982
+[MONITOR] normal mse=0.000731
+[STATS] state=MONITOR windows=130 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000878
+[MONITOR] normal mse=0.000569
+[MONITOR] normal mse=0.000835
+[MONITOR] normal mse=0.000394
+[STATS] state=MONITOR windows=134 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000776
+[MONITOR] normal mse=0.000881
+[MONITOR] normal mse=0.000827
+[MONITOR] normal mse=0.000968
+[STATS] state=MONITOR windows=138 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000558
+[MONITOR] normal mse=0.001054
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000781
+[TRAIN] epoch=1 loss=0.000777
+[TRAIN] epoch=2 loss=0.000773
+[TRAIN] epoch=3 loss=0.000769
+[TRAIN] epoch=4 loss=0.000764
+[TRAIN] epoch=5 loss=0.000760
+[TRAIN] epoch=6 loss=0.000756
+[TRAIN] epoch=7 loss=0.000751
+[TRAIN] epoch=8 loss=0.000747
+[TRAIN] epoch=9 loss=0.000743
+[TRAIN] Done. Cycles=11084563 (~65 ms) steps=150
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000554
+[MONITOR] normal mse=0.000703
+[STATS] state=MONITOR windows=142 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000787
+[MONITOR] normal mse=0.000608
+[MONITOR] normal mse=0.000800
+[MONITOR] normal mse=0.000443
+[STATS] state=MONITOR windows=146 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001065
+[MONITOR] normal mse=0.000790
+[MONITOR] normal mse=0.000853
+[MONITOR] normal mse=0.001732
+[STATS] state=MONITOR windows=150 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001194
+[MONITOR] normal mse=0.000907
+[MONITOR] normal mse=0.001144
+[MONITOR] normal mse=0.000610
+[STATS] state=MONITOR windows=154 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000872
+[MONITOR] normal mse=0.000374
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000840
+[TRAIN] epoch=1 loss=0.000837
+[TRAIN] epoch=2 loss=0.000834
+[TRAIN] epoch=3 loss=0.000832
+[TRAIN] epoch=4 loss=0.000830
+[TRAIN] epoch=5 loss=0.000828
+[TRAIN] epoch=6 loss=0.000825
+[TRAIN] epoch=7 loss=0.000823
+[TRAIN] epoch=8 loss=0.000821
+[TRAIN] epoch=9 loss=0.000819
+[TRAIN] Done. Cycles=11084507 (~65 ms) steps=160
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000386
+[MONITOR] normal mse=0.000909
+[STATS] state=MONITOR windows=158 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000536
+[MONITOR] normal mse=0.000995
+[MONITOR] normal mse=0.001137
+[MONITOR] normal mse=0.000957
+[STATS] state=MONITOR windows=162 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001053
+[MONITOR] normal mse=0.000689
+[MONITOR] normal mse=0.001242
+[MONITOR] normal mse=0.000753
+[STATS] state=MONITOR windows=166 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000878
+[MONITOR] normal mse=0.000835
+[MONITOR] normal mse=0.000791
+[MONITOR] normal mse=0.000845
+[STATS] state=MONITOR windows=170 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000880
+[MONITOR] normal mse=0.001140
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000877
+[TRAIN] epoch=1 loss=0.000875
+[TRAIN] epoch=2 loss=0.000873
+[TRAIN] epoch=3 loss=0.000871
+[TRAIN] epoch=4 loss=0.000869
+[TRAIN] epoch=5 loss=0.000867
+[TRAIN] epoch=6 loss=0.000866
+[TRAIN] epoch=7 loss=0.000864
+[TRAIN] epoch=8 loss=0.000862
+[TRAIN] epoch=9 loss=0.000860
+[TRAIN] Done. Cycles=11086051 (~65 ms) steps=170
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000672
+[MONITOR] normal mse=0.001269
+[STATS] state=MONITOR windows=174 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000687
+[MONITOR] normal mse=0.000906
+[MONITOR] normal mse=0.000504
+[MONITOR] normal mse=0.000868
+[STATS] state=MONITOR windows=178 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000642
+[MONITOR] normal mse=0.000973
+[MONITOR] normal mse=0.000943
+[MONITOR] normal mse=0.000709
+[STATS] state=MONITOR windows=182 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000868
+[MONITOR] normal mse=0.000542
+[MONITOR] normal mse=0.000635
+[MONITOR] normal mse=0.000569
+[STATS] state=MONITOR windows=186 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000287
+[MONITOR] normal mse=0.000562
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000727
+[TRAIN] epoch=1 loss=0.000725
+[TRAIN] epoch=2 loss=0.000723
+[TRAIN] epoch=3 loss=0.000722
+[TRAIN] epoch=4 loss=0.000720
+[TRAIN] epoch=5 loss=0.000718
+[TRAIN] epoch=6 loss=0.000716
+[TRAIN] epoch=7 loss=0.000714
+[TRAIN] epoch=8 loss=0.000712
+[TRAIN] epoch=9 loss=0.000710
+[TRAIN] Done. Cycles=11084503 (~65 ms) steps=180
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000695
+[MONITOR] normal mse=0.000415
+[STATS] state=MONITOR windows=190 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000853
+[MONITOR] normal mse=0.000534
+[MONITOR] normal mse=0.001032
+[MONITOR] normal mse=0.000843
+[STATS] state=MONITOR windows=194 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000840
+[MONITOR] normal mse=0.000564
+[MONITOR] normal mse=0.001086
+[MONITOR] normal mse=0.001017
+[STATS] state=MONITOR windows=198 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000881
+[MONITOR] normal mse=0.000814
+[MONITOR] normal mse=0.000870
+[MONITOR] normal mse=0.000768
+[STATS] state=MONITOR windows=202 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000670
+[MONITOR] normal mse=0.000540
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000776
+[TRAIN] epoch=1 loss=0.000775
+[TRAIN] epoch=2 loss=0.000773
+[TRAIN] epoch=3 loss=0.000772
+[TRAIN] epoch=4 loss=0.000770
+[TRAIN] epoch=5 loss=0.000769
+[TRAIN] epoch=6 loss=0.000767
+[TRAIN] epoch=7 loss=0.000766
+[TRAIN] epoch=8 loss=0.000765
+[TRAIN] epoch=9 loss=0.000763
+[TRAIN] Done. Cycles=11084579 (~65 ms) steps=190
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000814
+[MONITOR] normal mse=0.001245
+[STATS] state=MONITOR windows=206 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001037
+[MONITOR] normal mse=0.001191
+[MONITOR] normal mse=0.001366
+[MONITOR] normal mse=0.000997
+[STATS] state=MONITOR windows=210 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000852
+[MONITOR] normal mse=0.000721
+[MONITOR] normal mse=0.000927
+[MONITOR] normal mse=0.000417
+[STATS] state=MONITOR windows=214 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000774
+[MONITOR] normal mse=0.000646
+[MONITOR] normal mse=0.000838
+[MONITOR] normal mse=0.000750
+[STATS] state=MONITOR windows=218 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.001140
+[MONITOR] normal mse=0.000678
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000900
+[TRAIN] epoch=1 loss=0.000898
+[TRAIN] epoch=2 loss=0.000897
+[TRAIN] epoch=3 loss=0.000896
+[TRAIN] epoch=4 loss=0.000894
+[TRAIN] epoch=5 loss=0.000893
+[TRAIN] epoch=6 loss=0.000892
+[TRAIN] epoch=7 loss=0.000890
+[TRAIN] epoch=8 loss=0.000889
+[TRAIN] epoch=9 loss=0.000887
+[TRAIN] Done. Cycles=11087467 (~65 ms) steps=200
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000643
+[MONITOR] normal mse=0.000646
+[STATS] state=MONITOR windows=222 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000522
+[MONITOR] normal mse=0.000763
+[MONITOR] normal mse=0.000346
+[MONITOR] normal mse=0.000767
+[STATS] state=MONITOR windows=226 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000542
+[MONITOR] normal mse=0.000884
+[MONITOR] normal mse=0.000825
+[MONITOR] normal mse=0.000987
+[STATS] state=MONITOR windows=230 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000389
+[MONITOR] normal mse=0.000642
+[MONITOR] normal mse=0.000494
+[MONITOR] normal mse=0.000631
+[STATS] state=MONITOR windows=234 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000712
+[MONITOR] normal mse=0.000784
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000661
+[TRAIN] epoch=1 loss=0.000660
+[TRAIN] epoch=2 loss=0.000658
+[TRAIN] epoch=3 loss=0.000657
+[TRAIN] epoch=4 loss=0.000655
+[TRAIN] epoch=5 loss=0.000653
+[TRAIN] epoch=6 loss=0.000652
+[TRAIN] epoch=7 loss=0.000650
+[TRAIN] epoch=8 loss=0.000649
+[TRAIN] epoch=9 loss=0.000647
+[TRAIN] Done. Cycles=11085899 (~65 ms) steps=210
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000674
+[STATS] state=MONITOR windows=237 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000952
+[MONITOR] normal mse=0.000759
+[MONITOR] normal mse=0.000537
+[MONITOR] normal mse=0.001052
+[MONITOR] normal mse=0.000634
+[STATS] state=MONITOR windows=242 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000753
+[MONITOR] normal mse=0.000816
+[MONITOR] normal mse=0.000782
+[MONITOR] normal mse=0.000889
+[STATS] state=MONITOR windows=246 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000644
+[MONITOR] normal mse=0.001118
+[MONITOR] normal mse=0.001379
+[MONITOR] normal mse=0.000782
+[STATS] state=MONITOR windows=250 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000529
+[MONITOR] normal mse=0.000623
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000808
+[TRAIN] epoch=1 loss=0.000807
+[TRAIN] epoch=2 loss=0.000806
+[TRAIN] epoch=3 loss=0.000805
+[TRAIN] epoch=4 loss=0.000803
+[TRAIN] epoch=5 loss=0.000802
+[TRAIN] epoch=6 loss=0.000802
+[TRAIN] epoch=7 loss=0.000801
+[TRAIN] epoch=8 loss=0.000800
+[TRAIN] epoch=9 loss=0.000799
+[TRAIN] Done. Cycles=11083119 (~65 ms) steps=220
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000423
+[STATS] state=MONITOR windows=253 anomalies=0 thr=0.002310
+[MONITOR] normal mse=0.000723
+[MONITOR] ANOMALY! mse=0.029132 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.005203 thr=0.002310 streak=2
+[MONITOR] normal mse=0.001376
+[STATS] state=MONITOR windows=257 anomalies=2 thr=0.002310
+[MONITOR] normal mse=0.000778
+[MONITOR] normal mse=0.001219
+[MONITOR] normal mse=0.001608
+[MONITOR] normal mse=0.000848
+[STATS] state=MONITOR windows=261 anomalies=2 thr=0.002310
+[MONITOR] normal mse=0.000660
+[MONITOR] normal mse=0.000778
+[MONITOR] normal mse=0.001011
+[MONITOR] normal mse=0.000989
+[STATS] state=MONITOR windows=265 anomalies=2 thr=0.002310
+[MONITOR] normal mse=0.001265
+[MONITOR] normal mse=0.000655
+[MONITOR] normal mse=0.000677
+[MONITOR] normal mse=0.000843
+[MONITOR] normal mse=0.000820
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[STATS] state=TRAIN windows=270 anomalies=2 thr=0.002310
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000917
+[TRAIN] epoch=1 loss=0.000916
+[TRAIN] epoch=2 loss=0.000916
+[TRAIN] epoch=3 loss=0.000915
+[TRAIN] epoch=4 loss=0.000915
+[TRAIN] epoch=5 loss=0.000914
+[TRAIN] epoch=6 loss=0.000913
+[TRAIN] epoch=7 loss=0.000913
+[TRAIN] epoch=8 loss=0.000912
+[TRAIN] epoch=9 loss=0.000912
+[TRAIN] Done. Cycles=11083075 (~65 ms) steps=230
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000579
+[MONITOR] normal mse=0.000675
+[MONITOR] normal mse=0.000377
+[STATS] state=MONITOR windows=273 anomalies=2 thr=0.002310
+[MONITOR] normal mse=0.000618
+[MONITOR] normal mse=0.000568
+[MONITOR] normal mse=0.000477
+[MONITOR] ANOMALY! mse=0.059051 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=277 anomalies=3 thr=0.002310
+[MONITOR] normal mse=0.000382
+[MONITOR] normal mse=0.001962
+[MONITOR] normal mse=0.001524
+[MONITOR] normal mse=0.000514
+[STATS] state=MONITOR windows=281 anomalies=3 thr=0.002310
+[MONITOR] normal mse=0.001283
+[MONITOR] ANOMALY! mse=0.002994 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002902 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.002703 thr=0.002310 streak=3
+[STATS] state=MONITOR windows=285 anomalies=6 thr=0.002310
+[MONITOR] normal mse=0.001405
+[MONITOR] normal mse=0.000608
+[MONITOR] normal mse=0.001993
+[MONITOR] normal mse=0.001537
+[STATS] state=MONITOR windows=289 anomalies=6 thr=0.002310
+[MONITOR] normal mse=0.000591
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000943
+[TRAIN] epoch=1 loss=0.000943
+[TRAIN] epoch=2 loss=0.000942
+[TRAIN] epoch=3 loss=0.000942
+[TRAIN] epoch=4 loss=0.000941
+[TRAIN] epoch=5 loss=0.000941
+[TRAIN] epoch=6 loss=0.000940
+[TRAIN] epoch=7 loss=0.000940
+[TRAIN] epoch=8 loss=0.000939
+[TRAIN] epoch=9 loss=0.000939
+[TRAIN] Done. Cycles=11084543 (~65 ms) steps=240
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.002041
+[MONITOR] normal mse=0.001857
+[MONITOR] normal mse=0.000724
+[STATS] state=MONITOR windows=293 anomalies=6 thr=0.002310
+[MONITOR] normal mse=0.001400
+[MONITOR] normal mse=0.001423
+[MONITOR] normal mse=0.000658
+[MONITOR] normal mse=0.001412
+[STATS] state=MONITOR windows=297 anomalies=6 thr=0.002310
+[MONITOR] normal mse=0.001939
+[MONITOR] ANOMALY! mse=0.003008 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003464 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003398 thr=0.002310 streak=3
+[STATS] state=MONITOR windows=301 anomalies=9 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003135 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.003209 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=11
+[MONITOR] normal mse=0.001942
+[MONITOR] normal mse=0.000563
+[STATS] state=MONITOR windows=305 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001273
+[MONITOR] normal mse=0.001963
+[MONITOR] normal mse=0.002107
+[MONITOR] normal mse=0.000542
+[STATS] state=MONITOR windows=309 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001695
+[MONITOR] normal mse=0.001450
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001437
+[TRAIN] epoch=1 loss=0.001436
+[TRAIN] epoch=2 loss=0.001435
+[TRAIN] epoch=3 loss=0.001433
+[TRAIN] epoch=4 loss=0.001432
+[TRAIN] epoch=5 loss=0.001430
+[TRAIN] epoch=6 loss=0.001428
+[TRAIN] epoch=7 loss=0.001426
+[TRAIN] epoch=8 loss=0.001424
+[TRAIN] epoch=9 loss=0.001422
+[TRAIN] Done. Cycles=11093243 (~66 ms) steps=250
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.001167
+[MONITOR] normal mse=0.001805
+[STATS] state=MONITOR windows=313 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001503
+[MONITOR] normal mse=0.000698
+[MONITOR] normal mse=0.001449
+[MONITOR] normal mse=0.000461
+[STATS] state=MONITOR windows=317 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001504
+[MONITOR] normal mse=0.001359
+[MONITOR] normal mse=0.000666
+[MONITOR] normal mse=0.001287
+[STATS] state=MONITOR windows=321 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000878
+[MONITOR] normal mse=0.001056
+[MONITOR] normal mse=0.000952
+[MONITOR] normal mse=0.000604
+[STATS] state=MONITOR windows=325 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001017
+[MONITOR] normal mse=0.000575
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001061
+[TRAIN] epoch=1 loss=0.001060
+[TRAIN] epoch=2 loss=0.001058
+[TRAIN] epoch=3 loss=0.001057
+[TRAIN] epoch=4 loss=0.001055
+[TRAIN] epoch=5 loss=0.001054
+[TRAIN] epoch=6 loss=0.001052
+[TRAIN] epoch=7 loss=0.001051
+[TRAIN] epoch=8 loss=0.001049
+[TRAIN] epoch=9 loss=0.001047
+[TRAIN] Done. Cycles=11091731 (~66 ms) steps=260
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000778
+[MONITOR] normal mse=0.000632
+[STATS] state=MONITOR windows=329 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.001011
+[MONITOR] normal mse=0.000639
+[MONITOR] normal mse=0.000850
+[MONITOR] normal mse=0.000513
+[STATS] state=MONITOR windows=333 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000840
+[MONITOR] normal mse=0.000461
+[MONITOR] normal mse=0.000629
+[MONITOR] normal mse=0.000631
+[STATS] state=MONITOR windows=337 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000588
+[MONITOR] normal mse=0.000697
+[MONITOR] normal mse=0.000377
+[MONITOR] normal mse=0.000562
+[STATS] state=MONITOR windows=341 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000513
+[MONITOR] normal mse=0.000331
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000628
+[TRAIN] epoch=1 loss=0.000627
+[TRAIN] epoch=2 loss=0.000625
+[TRAIN] epoch=3 loss=0.000623
+[TRAIN] epoch=4 loss=0.000621
+[TRAIN] epoch=5 loss=0.000619
+[TRAIN] epoch=6 loss=0.000617
+[TRAIN] epoch=7 loss=0.000614
+[TRAIN] epoch=8 loss=0.000612
+[TRAIN] epoch=9 loss=0.000610
+[TRAIN] Done. Cycles=11084531 (~65 ms) steps=270
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000481
+[MONITOR] normal mse=0.000498
+[STATS] state=MONITOR windows=345 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000346
+[MONITOR] normal mse=0.000505
+[MONITOR] normal mse=0.000568
+[MONITOR] normal mse=0.000330
+[STATS] state=MONITOR windows=349 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.002121
+[MONITOR] normal mse=0.000466
+[MONITOR] normal mse=0.000611
+[MONITOR] normal mse=0.000396
+[STATS] state=MONITOR windows=353 anomalies=11 thr=0.002310
+[MONITOR] normal mse=0.000369
+[MONITOR] normal mse=0.000305
+[MONITOR] normal mse=0.000354
+[MONITOR] ANOMALY! mse=0.010586 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=357 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.001484
+[MONITOR] normal mse=0.000634
+[MONITOR] normal mse=0.000516
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000624
+[TRAIN] epoch=1 loss=0.000621
+[TRAIN] epoch=2 loss=0.000617
+[TRAIN] epoch=3 loss=0.000613
+[TRAIN] epoch=4 loss=0.000609
+[TRAIN] epoch=5 loss=0.000605
+[TRAIN] epoch=6 loss=0.000601
+[TRAIN] epoch=7 loss=0.000597
+[TRAIN] epoch=8 loss=0.000593
+[TRAIN] epoch=9 loss=0.000588
+[TRAIN] Done. Cycles=11083095 (~65 ms) steps=280
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000490
+[STATS] state=MONITOR windows=361 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000368
+[MONITOR] normal mse=0.000315
+[MONITOR] normal mse=0.000331
+[MONITOR] normal mse=0.000317
+[STATS] state=MONITOR windows=365 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000266
+[MONITOR] normal mse=0.000264
+[MONITOR] normal mse=0.000317
+[MONITOR] normal mse=0.000292
+[STATS] state=MONITOR windows=369 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000187
+[MONITOR] normal mse=0.000247
+[MONITOR] normal mse=0.000305
+[MONITOR] normal mse=0.000227
+[STATS] state=MONITOR windows=373 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000370
+[MONITOR] normal mse=0.000365
+[MONITOR] normal mse=0.000300
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000310
+[TRAIN] epoch=1 loss=0.000305
+[TRAIN] epoch=2 loss=0.000301
+[TRAIN] epoch=3 loss=0.000296
+[TRAIN] epoch=4 loss=0.000291
+[TRAIN] epoch=5 loss=0.000286
+[TRAIN] epoch=6 loss=0.000282
+[TRAIN] epoch=7 loss=0.000277
+[TRAIN] epoch=8 loss=0.000272
+[TRAIN] epoch=9 loss=0.000268
+[TRAIN] Done. Cycles=11088863 (~66 ms) steps=290
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000239
+[STATS] state=MONITOR windows=377 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000251
+[MONITOR] normal mse=0.000224
+[MONITOR] normal mse=0.000294
+[MONITOR] normal mse=0.000250
+[STATS] state=MONITOR windows=381 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000190
+[MONITOR] normal mse=0.000235
+[MONITOR] normal mse=0.000227
+[MONITOR] normal mse=0.000239
+[STATS] state=MONITOR windows=385 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000207
+[MONITOR] normal mse=0.000222
+[MONITOR] normal mse=0.000199
+[MONITOR] normal mse=0.000227
+[STATS] state=MONITOR windows=389 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000269
+[MONITOR] normal mse=0.000289
+[MONITOR] normal mse=0.000283
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000240
+[TRAIN] epoch=1 loss=0.000236
+[TRAIN] epoch=2 loss=0.000232
+[TRAIN] epoch=3 loss=0.000228
+[TRAIN] epoch=4 loss=0.000224
+[TRAIN] epoch=5 loss=0.000220
+[TRAIN] epoch=6 loss=0.000216
+[TRAIN] epoch=7 loss=0.000212
+[TRAIN] epoch=8 loss=0.000208
+[TRAIN] epoch=9 loss=0.000205
+[TRAIN] Done. Cycles=11084515 (~65 ms) steps=300
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.000188
+[STATS] state=MONITOR windows=393 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000214
+[MONITOR] normal mse=0.000227
+[MONITOR] normal mse=0.000227
+[MONITOR] normal mse=0.000175
+[STATS] state=MONITOR windows=397 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000185
+[MONITOR] normal mse=0.000216
+[MONITOR] normal mse=0.000226
+[MONITOR] normal mse=0.000136
+[STATS] state=MONITOR windows=401 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000187
+[MONITOR] normal mse=0.000181
+[MONITOR] normal mse=0.000278
+[MONITOR] normal mse=0.000205
+[STATS] state=MONITOR windows=405 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000199
+[MONITOR] normal mse=0.000178
+[MONITOR] normal mse=0.000221
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000203
+[TRAIN] epoch=1 loss=0.000199
+[TRAIN] epoch=2 loss=0.000196
+[TRAIN] epoch=3 loss=0.000193
+[TRAIN] epoch=4 loss=0.000190
+[TRAIN] epoch=5 loss=0.000187
+[TRAIN] epoch=6 loss=0.000184
+[TRAIN] epoch=7 loss=0.000181
+[TRAIN] epoch=8 loss=0.000179
+[TRAIN] epoch=9 loss=0.000176
+[TRAIN] Done. Cycles=11085991 (~65 ms) steps=310
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=408 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000193
+[MONITOR] normal mse=0.000144
+[MONITOR] normal mse=0.000211
+[MONITOR] normal mse=0.000182
+[STATS] state=MONITOR windows=412 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000145
+[MONITOR] normal mse=0.000170
+[MONITOR] normal mse=0.000196
+[MONITOR] normal mse=0.000182
+[STATS] state=MONITOR windows=416 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000164
+[MONITOR] normal mse=0.000203
+[MONITOR] normal mse=0.000177
+[MONITOR] normal mse=0.000150
+[MONITOR] normal mse=0.000183
+[STATS] state=MONITOR windows=421 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000179
+[MONITOR] normal mse=0.000181
+[MONITOR] normal mse=0.000175
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000177
+[TRAIN] epoch=1 loss=0.000174
+[TRAIN] epoch=2 loss=0.000172
+[TRAIN] epoch=3 loss=0.000169
+[TRAIN] epoch=4 loss=0.000166
+[TRAIN] epoch=5 loss=0.000164
+[TRAIN] epoch=6 loss=0.000161
+[TRAIN] epoch=7 loss=0.000159
+[TRAIN] epoch=8 loss=0.000157
+[TRAIN] epoch=9 loss=0.000154
+[TRAIN] Done. Cycles=11086003 (~65 ms) steps=320
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=424 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000116
+[MONITOR] normal mse=0.000149
+[MONITOR] normal mse=0.000160
+[MONITOR] normal mse=0.000170
+[STATS] state=MONITOR windows=428 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000174
+[MONITOR] normal mse=0.000132
+[MONITOR] normal mse=0.000178
+[MONITOR] normal mse=0.000200
+[STATS] state=MONITOR windows=432 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000231
+[MONITOR] normal mse=0.000150
+[MONITOR] normal mse=0.000145
+[MONITOR] normal mse=0.000158
+[STATS] state=MONITOR windows=436 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000172
+[MONITOR] normal mse=0.000185
+[MONITOR] normal mse=0.000204
+[MONITOR] normal mse=0.000144
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000167
+[TRAIN] epoch=1 loss=0.000165
+[TRAIN] epoch=2 loss=0.000163
+[TRAIN] epoch=3 loss=0.000161
+[TRAIN] epoch=4 loss=0.000159
+[TRAIN] epoch=5 loss=0.000157
+[TRAIN] epoch=6 loss=0.000155
+[TRAIN] epoch=7 loss=0.000154
+[TRAIN] epoch=8 loss=0.000152
+[TRAIN] epoch=9 loss=0.000150
+[TRAIN] Done. Cycles=11084603 (~65 ms) steps=330
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=440 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000180
+[MONITOR] normal mse=0.000167
+[MONITOR] normal mse=0.000160
+[MONITOR] normal mse=0.000209
+[STATS] state=MONITOR windows=444 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000158
+[MONITOR] normal mse=0.000148
+[MONITOR] normal mse=0.000134
+[MONITOR] normal mse=0.000126
+[STATS] state=MONITOR windows=448 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000206
+[MONITOR] normal mse=0.000200
+[MONITOR] normal mse=0.000209
+[MONITOR] normal mse=0.000197
+[STATS] state=MONITOR windows=452 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000155
+[MONITOR] normal mse=0.000153
+[MONITOR] normal mse=0.000154
+[MONITOR] normal mse=0.000141
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000169
+[TRAIN] epoch=1 loss=0.000167
+[TRAIN] epoch=2 loss=0.000165
+[TRAIN] epoch=3 loss=0.000164
+[TRAIN] epoch=4 loss=0.000162
+[TRAIN] epoch=5 loss=0.000160
+[TRAIN] epoch=6 loss=0.000159
+[TRAIN] epoch=7 loss=0.000157
+[TRAIN] epoch=8 loss=0.000156
+[TRAIN] epoch=9 loss=0.000154
+[TRAIN] Done. Cycles=11084615 (~65 ms) steps=340
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=456 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000122
+[MONITOR] normal mse=0.000085
+[MONITOR] normal mse=0.000118
+[MONITOR] normal mse=0.000169
+[STATS] state=MONITOR windows=460 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000104
+[MONITOR] normal mse=0.000113
+[MONITOR] normal mse=0.000132
+[MONITOR] normal mse=0.000126
+[STATS] state=MONITOR windows=464 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000256
+[MONITOR] normal mse=0.000101
+[MONITOR] normal mse=0.000131
+[MONITOR] normal mse=0.000139
+[STATS] state=MONITOR windows=468 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000250
+[MONITOR] normal mse=0.000243
+[MONITOR] normal mse=0.000238
+[MONITOR] normal mse=0.000248
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000161
+[TRAIN] epoch=1 loss=0.000160
+[TRAIN] epoch=2 loss=0.000158
+[TRAIN] epoch=3 loss=0.000157
+[TRAIN] epoch=4 loss=0.000156
+[TRAIN] epoch=5 loss=0.000154
+[TRAIN] epoch=6 loss=0.000153
+[TRAIN] epoch=7 loss=0.000152
+[TRAIN] epoch=8 loss=0.000150
+[TRAIN] epoch=9 loss=0.000149
+[TRAIN] Done. Cycles=11087463 (~65 ms) steps=350
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=472 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000165
+[MONITOR] normal mse=0.000159
+[MONITOR] normal mse=0.000103
+[MONITOR] normal mse=0.000106
+[STATS] state=MONITOR windows=476 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000081
+[MONITOR] normal mse=0.000108
+[MONITOR] normal mse=0.000272
+[MONITOR] normal mse=0.000177
+[STATS] state=MONITOR windows=480 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000155
+[MONITOR] normal mse=0.000195
+[MONITOR] normal mse=0.000204
+[MONITOR] normal mse=0.000200
+[STATS] state=MONITOR windows=484 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000149
+[MONITOR] normal mse=0.000154
+[MONITOR] normal mse=0.000165
+[MONITOR] normal mse=0.000243
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000165
+[TRAIN] epoch=1 loss=0.000164
+[TRAIN] epoch=2 loss=0.000163
+[TRAIN] epoch=3 loss=0.000162
+[TRAIN] epoch=4 loss=0.000161
+[TRAIN] epoch=5 loss=0.000160
+[TRAIN] epoch=6 loss=0.000159
+[TRAIN] epoch=7 loss=0.000158
+[TRAIN] epoch=8 loss=0.000157
+[TRAIN] epoch=9 loss=0.000156
+[TRAIN] Done. Cycles=11087443 (~65 ms) steps=360
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=488 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000258
+[MONITOR] normal mse=0.000137
+[MONITOR] normal mse=0.000146
+[MONITOR] normal mse=0.000295
+[STATS] state=MONITOR windows=492 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000210
+[MONITOR] normal mse=0.000133
+[MONITOR] normal mse=0.000114
+[MONITOR] normal mse=0.000161
+[STATS] state=MONITOR windows=496 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000200
+[MONITOR] normal mse=0.000101
+[MONITOR] normal mse=0.000123
+[MONITOR] normal mse=0.000117
+[STATS] state=MONITOR windows=500 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000134
+[MONITOR] normal mse=0.000247
+[MONITOR] normal mse=0.000229
+[MONITOR] normal mse=0.000342
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000184
+[TRAIN] epoch=1 loss=0.000183
+[TRAIN] epoch=2 loss=0.000182
+[TRAIN] epoch=3 loss=0.000182
+[TRAIN] epoch=4 loss=0.000181
+[TRAIN] epoch=5 loss=0.000180
+[TRAIN] epoch=6 loss=0.000179
+[TRAIN] epoch=7 loss=0.000178
+[TRAIN] epoch=8 loss=0.000178
+[TRAIN] epoch=9 loss=0.000177
+[TRAIN] Done. Cycles=11084447 (~65 ms) steps=370
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=504 anomalies=12 thr=0.002310
+---- Sent utf8 encoded message: "W" ----
+[RX] 0x57 'W'
+[CMD] Received 'W'
+[CMD] SD error, cannot save.
+[MONITOR] normal mse=0.000299
+[MONITOR] normal mse=0.000332
+[MONITOR] normal mse=0.000409
+[MONITOR] normal mse=0.000414
+[STATS] state=MONITOR windows=508 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000408
+[MONITOR] normal mse=0.000465
+[MONITOR] normal mse=0.000488
+[MONITOR] normal mse=0.000349
+[STATS] state=MONITOR windows=512 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000306
+[MONITOR] normal mse=0.000509
+[MONITOR] normal mse=0.000509
+[MONITOR] normal mse=0.000460
+[STATS] state=MONITOR windows=516 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000407
+[MONITOR] normal mse=0.000195
+[MONITOR] normal mse=0.000349
+[MONITOR] normal mse=0.000321
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000389
+[TRAIN] epoch=1 loss=0.000388
+[TRAIN] epoch=2 loss=0.000388
+[TRAIN] epoch=3 loss=0.000387
+[TRAIN] epoch=4 loss=0.000387
+[TRAIN] epoch=5 loss=0.000387
+[TRAIN] epoch=6 loss=0.000386
+[TRAIN] epoch=7 loss=0.000386
+[TRAIN] epoch=8 loss=0.000385
+[TRAIN] epoch=9 loss=0.000385
+[TRAIN] Done. Cycles=11081559 (~65 ms) steps=380
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=520 anomalies=12 thr=0.002310
+[MONITOR] normal mse=0.000191
+[MONITOR] normal mse=0.000248
+[MONITOR] ANOMALY! mse=0.004879 thr=0.002310 streak=1
+[MONITOR] normal mse=0.000510
+[STATS] state=MONITOR windows=524 anomalies=13 thr=0.002310
+[MONITOR] normal mse=0.000755
+[MONITOR] normal mse=0.000255
+[MONITOR] normal mse=0.000407
+[MONITOR] ANOMALY! mse=0.005219 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=528 anomalies=14 thr=0.002310
+[MONITOR] normal mse=0.000764
+[MONITOR] normal mse=0.000516
+[MONITOR] normal mse=0.000369
+[MONITOR] normal mse=0.000657
+[STATS] state=MONITOR windows=532 anomalies=14 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003217 thr=0.002310 streak=1
+[MONITOR] normal mse=0.000984
+[MONITOR] normal mse=0.000556
+[MONITOR] normal mse=0.000392
+[STATS] state=MONITOR windows=536 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.000515
+[MONITOR] normal mse=0.000340
+[MONITOR] normal mse=0.000522
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000499
+[TRAIN] epoch=1 loss=0.000498
+[TRAIN] epoch=2 loss=0.000497
+[TRAIN] epoch=3 loss=0.000496
+[TRAIN] epoch=4 loss=0.000495
+[TRAIN] epoch=5 loss=0.000494
+[TRAIN] epoch=6 loss=0.000493
+[TRAIN] epoch=7 loss=0.000492
+[TRAIN] epoch=8 loss=0.000491
+[TRAIN] epoch=9 loss=0.000489
+[TRAIN] Done. Cycles=11088879 (~66 ms) steps=390
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=539 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.000585
+[MONITOR] normal mse=0.000936
+[MONITOR] normal mse=0.001657
+[MONITOR] normal mse=0.000761
+[MONITOR] normal mse=0.000668
+[STATS] state=MONITOR windows=544 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.000448
+[MONITOR] normal mse=0.000567
+[MONITOR] normal mse=0.000343
+[MONITOR] normal mse=0.000455
+[STATS] state=MONITOR windows=548 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.000429
+[MONITOR] normal mse=0.000914
+[MONITOR] normal mse=0.000902
+[MONITOR] normal mse=0.001210
+[STATS] state=MONITOR windows=552 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.001852
+[MONITOR] normal mse=0.000612
+[MONITOR] normal mse=0.001335
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.000854
+[TRAIN] epoch=1 loss=0.000854
+[TRAIN] epoch=2 loss=0.000854
+[TRAIN] epoch=3 loss=0.000854
+[TRAIN] epoch=4 loss=0.000854
+[TRAIN] epoch=5 loss=0.000853
+[TRAIN] epoch=6 loss=0.000853
+[TRAIN] epoch=7 loss=0.000852
+[TRAIN] epoch=8 loss=0.000851
+[TRAIN] epoch=9 loss=0.000851
+[TRAIN] Done. Cycles=11084583 (~65 ms) steps=400
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=555 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.001086
+[MONITOR] normal mse=0.001111
+[MONITOR] normal mse=0.000788
+[MONITOR] normal mse=0.001241
+[STATS] state=MONITOR windows=559 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.001138
+[MONITOR] normal mse=0.002096
+[MONITOR] normal mse=0.001904
+[MONITOR] normal mse=0.001909
+[STATS] state=MONITOR windows=563 anomalies=15 thr=0.002310
+[MONITOR] normal mse=0.000941
+[MONITOR] normal mse=0.001221
+[MONITOR] ANOMALY! mse=0.003080 thr=0.002310 streak=1
+[MONITOR] normal mse=0.001043
+[STATS] state=MONITOR windows=567 anomalies=16 thr=0.002310
+[MONITOR] normal mse=0.001517
+[MONITOR] normal mse=0.001284
+[MONITOR] normal mse=0.001388
+[MONITOR] normal mse=0.000937
+[MONITOR] normal mse=0.001281
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[STATS] state=TRAIN windows=572 anomalies=16 thr=0.002310
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001305
+[TRAIN] epoch=1 loss=0.001304
+[TRAIN] epoch=2 loss=0.001302
+[TRAIN] epoch=3 loss=0.001300
+[TRAIN] epoch=4 loss=0.001297
+[TRAIN] epoch=5 loss=0.001295
+[TRAIN] epoch=6 loss=0.001292
+[TRAIN] epoch=7 loss=0.001289
+[TRAIN] epoch=8 loss=0.001286
+[TRAIN] epoch=9 loss=0.001283
+[TRAIN] Done. Cycles=11090347 (~66 ms) steps=410
+[FSM] TRAIN → MONITOR
+[MONITOR] ANOMALY! mse=0.003472 thr=0.002310 streak=1
+[MONITOR] normal mse=0.001131
+[MONITOR] normal mse=0.001172
+[STATS] state=MONITOR windows=575 anomalies=17 thr=0.002310
+[MONITOR] normal mse=0.002176
+[MONITOR] normal mse=0.001664
+[MONITOR] normal mse=0.001257
+[MONITOR] normal mse=0.001086
+[STATS] state=MONITOR windows=579 anomalies=17 thr=0.002310
+[MONITOR] normal mse=0.001607
+[MONITOR] ANOMALY! mse=0.003074 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003994 thr=0.002310 streak=2
+[MONITOR] normal mse=0.001731
+[STATS] state=MONITOR windows=583 anomalies=19 thr=0.002310
+[MONITOR] normal mse=0.001157
+[MONITOR] normal mse=0.001802
+[MONITOR] normal mse=0.001941
+[MONITOR] normal mse=0.002304
+[STATS] state=MONITOR windows=587 anomalies=19 thr=0.002310
+[MONITOR] normal mse=0.001372
+[MONITOR] normal mse=0.001057
+[MONITOR] normal mse=0.002164
+[MONITOR] normal mse=0.001933
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001597
+[TRAIN] epoch=1 loss=0.001593
+[TRAIN] epoch=2 loss=0.001589
+[TRAIN] epoch=3 loss=0.001585
+[TRAIN] epoch=4 loss=0.001580
+[TRAIN] epoch=5 loss=0.001576
+[TRAIN] epoch=6 loss=0.001571
+[TRAIN] epoch=7 loss=0.001566
+[TRAIN] epoch=8 loss=0.001562
+[TRAIN] epoch=9 loss=0.001557
+[TRAIN] Done. Cycles=11090399 (~66 ms) steps=420
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=591 anomalies=19 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002745 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003795 thr=0.002310 streak=2
+[MONITOR] normal mse=0.001282
+[MONITOR] normal mse=0.001317
+[STATS] state=MONITOR windows=595 anomalies=21 thr=0.002310
+[MONITOR] normal mse=0.001069
+[MONITOR] ANOMALY! mse=0.002630 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002325 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.002533 thr=0.002310 streak=3
+[STATS] state=MONITOR windows=599 anomalies=24 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003075 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.003748 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=26
+[MONITOR] normal mse=0.001580
+[MONITOR] normal mse=0.000902
+[STATS] state=MONITOR windows=603 anomalies=26 thr=0.002310
+[MONITOR] normal mse=0.002149
+[MONITOR] normal mse=0.002194
+[MONITOR] ANOMALY! mse=0.002851 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003035 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=607 anomalies=28 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003576 thr=0.002310 streak=3
+[MONITOR] ANOMALY! mse=0.002962 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.002808 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=31
+[MONITOR] ANOMALY! mse=0.002841 thr=0.002310 streak=6
+[ALERT] Sustained anomaly detected! Streak=6 total=32
+[STATS] state=MONITOR windows=611 anomalies=32 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002533 thr=0.002310 streak=7
+[ALERT] Sustained anomaly detected! Streak=7 total=33
+[MONITOR] ANOMALY! mse=0.002977 thr=0.002310 streak=8
+[ALERT] Sustained anomaly detected! Streak=8 total=34
+[MONITOR] ANOMALY! mse=0.003126 thr=0.002310 streak=9
+[ALERT] Sustained anomaly detected! Streak=9 total=35
+[MONITOR] ANOMALY! mse=0.003354 thr=0.002310 streak=10
+[ALERT] Sustained anomaly detected! Streak=10 total=36
+[STATS] state=MONITOR windows=615 anomalies=36 thr=0.002310
+[MONITOR] ANOMALY! mse=0.004551 thr=0.002310 streak=11
+[ALERT] Sustained anomaly detected! Streak=11 total=37
+[MONITOR] ANOMALY! mse=0.003625 thr=0.002310 streak=12
+[ALERT] Sustained anomaly detected! Streak=12 total=38
+[MONITOR] normal mse=0.001316
+[MONITOR] normal mse=0.001031
+[STATS] state=MONITOR windows=619 anomalies=38 thr=0.002310
+[MONITOR] normal mse=0.002166
+[MONITOR] normal mse=0.001897
+[MONITOR] ANOMALY! mse=0.002828 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003680 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=623 anomalies=40 thr=0.002310
+[MONITOR] normal mse=0.001612
+[MONITOR] normal mse=0.001249
+[MONITOR] normal mse=0.001580
+[MONITOR] normal mse=0.002022
+[MONITOR] ANOMALY! mse=0.002540 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=628 anomalies=41 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003163 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003359 thr=0.002310 streak=3
+[MONITOR] ANOMALY! mse=0.003498 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.004417 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=45
+[STATS] state=MONITOR windows=632 anomalies=45 thr=0.002310
+[MONITOR] normal mse=0.001285
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001541
+[TRAIN] epoch=1 loss=0.001535
+[TRAIN] epoch=2 loss=0.001530
+[TRAIN] epoch=3 loss=0.001524
+[TRAIN] epoch=4 loss=0.001518
+[TRAIN] epoch=5 loss=0.001512
+[TRAIN] epoch=6 loss=0.001506
+[TRAIN] epoch=7 loss=0.001500
+[TRAIN] epoch=8 loss=0.001493
+[TRAIN] epoch=9 loss=0.001487
+[TRAIN] Done. Cycles=11087515 (~65 ms) steps=430
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.001241
+[MONITOR] ANOMALY! mse=0.002451 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=635 anomalies=46 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002523 thr=0.002310 streak=2
+[MONITOR] normal mse=0.002260
+[MONITOR] ANOMALY! mse=0.002485 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003201 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=639 anomalies=49 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003537 thr=0.002310 streak=3
+[MONITOR] ANOMALY! mse=0.003272 thr=0.002310 streak=4
+[MONITOR] normal mse=0.001122
+[MONITOR] normal mse=0.001289
+[STATS] state=MONITOR windows=643 anomalies=51 thr=0.002310
+[MONITOR] normal mse=0.001117
+[MONITOR] ANOMALY! mse=0.002552 thr=0.002310 streak=1
+[MONITOR] normal mse=0.002112
+[MONITOR] ANOMALY! mse=0.002853 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=647 anomalies=53 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003295 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003415 thr=0.002310 streak=3
+[MONITOR] ANOMALY! mse=0.003352 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.003413 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=57
+[STATS] state=MONITOR windows=651 anomalies=57 thr=0.002310
+[MONITOR] ANOMALY! mse=0.003342 thr=0.002310 streak=6
+[ALERT] Sustained anomaly detected! Streak=6 total=58
+[MONITOR] ANOMALY! mse=0.003608 thr=0.002310 streak=7
+[ALERT] Sustained anomaly detected! Streak=7 total=59
+[MONITOR] ANOMALY! mse=0.002932 thr=0.002310 streak=8
+[ALERT] Sustained anomaly detected! Streak=8 total=60
+[MONITOR] ANOMALY! mse=0.003105 thr=0.002310 streak=9
+[ALERT] Sustained anomaly detected! Streak=9 total=61
+[STATS] state=MONITOR windows=655 anomalies=61 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002933 thr=0.002310 streak=10
+[ALERT] Sustained anomaly detected! Streak=10 total=62
+[MONITOR] ANOMALY! mse=0.002559 thr=0.002310 streak=11
+[ALERT] Sustained anomaly detected! Streak=11 total=63
+[MONITOR] normal mse=0.002031
+[MONITOR] normal mse=0.000654
+[STATS] state=MONITOR windows=659 anomalies=63 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002489 thr=0.002310 streak=1
+[MONITOR] normal mse=0.001774
+[MONITOR] normal mse=0.000374
+[MONITOR] normal mse=0.001232
+[MONITOR] normal mse=0.001104
+[STATS] state=MONITOR windows=664 anomalies=64 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002556 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002764 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003026 thr=0.002310 streak=3
+[MONITOR] normal mse=0.001837
+[STATS] state=MONITOR windows=668 anomalies=67 thr=0.002310
+[MONITOR] normal mse=0.000986
+[MONITOR] normal mse=0.001246
+[MONITOR] normal mse=0.001149
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001346
+[TRAIN] epoch=1 loss=0.001340
+[TRAIN] epoch=2 loss=0.001334
+[TRAIN] epoch=3 loss=0.001328
+[TRAIN] epoch=4 loss=0.001322
+[TRAIN] epoch=5 loss=0.001316
+[TRAIN] epoch=6 loss=0.001311
+[TRAIN] epoch=7 loss=0.001305
+[TRAIN] epoch=8 loss=0.001299
+[TRAIN] epoch=9 loss=0.001293
+[TRAIN] Done. Cycles=11091851 (~66 ms) steps=440
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=671 anomalies=67 thr=0.002310
+[MONITOR] normal mse=0.001231
+[MONITOR] normal mse=0.001970
+[MONITOR] ANOMALY! mse=0.002394 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002441 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=675 anomalies=69 thr=0.002310
+[MONITOR] normal mse=0.002145
+[MONITOR] ANOMALY! mse=0.002801 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002604 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003194 thr=0.002310 streak=3
+[STATS] state=MONITOR windows=679 anomalies=72 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002862 thr=0.002310 streak=4
+[MONITOR] normal mse=0.001286
+[MONITOR] normal mse=0.001332
+[MONITOR] normal mse=0.000927
+[STATS] state=MONITOR windows=683 anomalies=73 thr=0.002310
+[MONITOR] normal mse=0.001984
+[MONITOR] normal mse=0.001700
+[MONITOR] ANOMALY! mse=0.002659 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003606 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=687 anomalies=75 thr=0.002310
+[MONITOR] normal mse=0.002230
+[MONITOR] normal mse=0.001106
+[MONITOR] normal mse=0.000982
+[MONITOR] normal mse=0.001679
+[MONITOR] normal mse=0.001759
+[STATS] state=MONITOR windows=692 anomalies=75 thr=0.002310
+[MONITOR] normal mse=0.001536
+[MONITOR] normal mse=0.000849
+[MONITOR] normal mse=0.002004
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001545
+[TRAIN] epoch=1 loss=0.001539
+[TRAIN] epoch=2 loss=0.001534
+[TRAIN] epoch=3 loss=0.001528
+[TRAIN] epoch=4 loss=0.001523
+[TRAIN] epoch=5 loss=0.001518
+[TRAIN] epoch=6 loss=0.001512
+[TRAIN] epoch=7 loss=0.001507
+[TRAIN] epoch=8 loss=0.001502
+[TRAIN] epoch=9 loss=0.001496
+[TRAIN] Done. Cycles=11087471 (~65 ms) steps=450
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=695 anomalies=75 thr=0.002310
+[MONITOR] normal mse=0.001683
+[MONITOR] ANOMALY! mse=0.003163 thr=0.002310 streak=1
+[MONITOR] normal mse=0.001904
+[MONITOR] normal mse=0.001128
+[STATS] state=MONITOR windows=699 anomalies=76 thr=0.002310
+[MONITOR] normal mse=0.000939
+[MONITOR] normal mse=0.001654
+[MONITOR] normal mse=0.001897
+[MONITOR] normal mse=0.001936
+[STATS] state=MONITOR windows=703 anomalies=76 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002531 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.004061 thr=0.002310 streak=2
+[MONITOR] normal mse=0.001205
+[MONITOR] normal mse=0.000965
+[STATS] state=MONITOR windows=707 anomalies=78 thr=0.002310
+[MONITOR] normal mse=0.001390
+[MONITOR] ANOMALY! mse=0.002843 thr=0.002310 streak=1
+[MONITOR] normal mse=0.002044
+[MONITOR] normal mse=0.000960
+[STATS] state=MONITOR windows=711 anomalies=79 thr=0.002310
+[MONITOR] normal mse=0.001446
+[MONITOR] normal mse=0.001330
+[MONITOR] normal mse=0.002280
+[MONITOR] normal mse=0.000651
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001463
+[TRAIN] epoch=1 loss=0.001460
+[TRAIN] epoch=2 loss=0.001456
+[TRAIN] epoch=3 loss=0.001453
+[TRAIN] epoch=4 loss=0.001450
+[TRAIN] epoch=5 loss=0.001447
+[TRAIN] epoch=6 loss=0.001444
+[TRAIN] epoch=7 loss=0.001441
+[TRAIN] epoch=8 loss=0.001438
+[TRAIN] epoch=9 loss=0.001435
+[TRAIN] Done. Cycles=11090303 (~66 ms) steps=460
+[FSM] TRAIN → MONITOR
+[STATS] state=MONITOR windows=715 anomalies=79 thr=0.002310
+[MONITOR] normal mse=0.001811
+[MONITOR] ANOMALY! mse=0.002434 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002934 thr=0.002310 streak=2
+[MONITOR] normal mse=0.001752
+[STATS] state=MONITOR windows=719 anomalies=81 thr=0.002310
+[MONITOR] normal mse=0.001108
+[MONITOR] normal mse=0.000769
+[MONITOR] normal mse=0.001819
+[MONITOR] ANOMALY! mse=0.002647 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=723 anomalies=82 thr=0.002310
+[MONITOR] normal mse=0.002196
+[MONITOR] normal mse=0.000633
+[MONITOR] normal mse=0.001020
+[MONITOR] ANOMALY! mse=0.003740 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=727 anomalies=83 thr=0.002310
+[MONITOR] ANOMALY! mse=0.004917 thr=0.002310 streak=2
+[MONITOR] ANOMALY! mse=0.003379 thr=0.002310 streak=3
+[MONITOR] normal mse=0.001059
+[MONITOR] normal mse=0.000975
+[STATS] state=MONITOR windows=731 anomalies=85 thr=0.002310
+[MONITOR] normal mse=0.000855
+[MONITOR] normal mse=0.001493
+[MONITOR] ANOMALY! mse=0.002430 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.002856 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=735 anomalies=87 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002339 thr=0.002310 streak=3
+[MONITOR] normal mse=0.002232
+[MONITOR] ANOMALY! mse=0.003023 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003365 thr=0.002310 streak=2
+[STATS] state=MONITOR windows=739 anomalies=90 thr=0.002310
+[MONITOR] ANOMALY! mse=0.004657 thr=0.002310 streak=3
+[MONITOR] ANOMALY! mse=0.004575 thr=0.002310 streak=4
+[MONITOR] ANOMALY! mse=0.002421 thr=0.002310 streak=5
+[ALERT] Sustained anomaly detected! Streak=5 total=93
+[MONITOR] normal mse=0.001355
+[STATS] state=MONITOR windows=743 anomalies=93 thr=0.002310
+[MONITOR] normal mse=0.000664
+[MONITOR] normal mse=0.001912
+[MONITOR] Training batch ready. → TRAIN
+[FSM] MONITOR → TRAIN
+[TRAIN] Online training 16 windows × 10 epochs
+[TRAIN] epoch=0 loss=0.001353
+[TRAIN] epoch=1 loss=0.001350
+[TRAIN] epoch=2 loss=0.001346
+[TRAIN] epoch=3 loss=0.001343
+[TRAIN] epoch=4 loss=0.001339
+[TRAIN] epoch=5 loss=0.001336
+[TRAIN] epoch=6 loss=0.001332
+[TRAIN] epoch=7 loss=0.001329
+[TRAIN] epoch=8 loss=0.001326
+[TRAIN] epoch=9 loss=0.001322
+[TRAIN] Done. Cycles=11090347 (~66 ms) steps=470
+[FSM] TRAIN → MONITOR
+[MONITOR] normal mse=0.001119
+[MONITOR] normal mse=0.000887
+[STATS] state=MONITOR windows=747 anomalies=93 thr=0.002310
+[MONITOR] normal mse=0.001033
+[MONITOR] normal mse=0.001139
+[MONITOR] normal mse=0.001300
+[MONITOR] ANOMALY! mse=0.003411 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=751 anomalies=94 thr=0.002310
+[MONITOR] normal mse=0.001351
+[MONITOR] normal mse=0.000917
+[MONITOR] normal mse=0.001262
+[MONITOR] ANOMALY! mse=0.002339 thr=0.002310 streak=1
+[STATS] state=MONITOR windows=755 anomalies=95 thr=0.002310
+[MONITOR] ANOMALY! mse=0.002347 thr=0.002310 streak=2
+[MONITOR] normal mse=0.000149
+[MONITOR] normal mse=0.001689
+[MONITOR] normal mse=0.001147
+[STATS] state=MONITOR windows=759 anomalies=96 thr=0.002310
+[MONITOR] normal mse=0.000820
+[MONITOR] ANOMALY! mse=0.004694 thr=0.002310 streak=1
+[MONITOR] ANOMALY! mse=0.003209 thr=0.002310 streak=2
+[MONITOR] normal mse=0.002217
+[STATS] state=MONITOR windows=763 anomalies=98 thr=0.002310
+[MONITOR] normal mse=0.002042
+[MONITOR] normal mse=0.000703

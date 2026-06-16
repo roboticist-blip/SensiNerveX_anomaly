@@ -83,6 +83,8 @@ typedef struct {
     uint8_t    flag_sd_error;
     uint8_t    flag_imu_error;
 
+    uint8_t current_ground_truth;
+
 } SNX_Supervisor;
 
 extern AE_Model      g_ae;
