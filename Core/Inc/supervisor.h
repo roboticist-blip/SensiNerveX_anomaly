@@ -20,6 +20,11 @@
  *   TRAIN      → MONITOR   : training pass complete
  *   ANY        → FALLBACK  : fatal error flag set
  *   FALLBACK   → IDLE      : 'R' command (reset)
+ *
+ * Research additions (v3.1):
+ *   - SNX_FaultLabel enum + current_label field for ground-truth injection
+ *   - UART '0'..'5' commands update current_label in real-time
+ *   - train_session_id incremented each time TRAIN state is entered
  */
 
 #ifndef SUPERVISOR_H
@@ -44,6 +49,19 @@ typedef enum {
     SNX_STATE_COUNT
 } SNX_State;
 
+/* ── Ground-truth fault labels
+ *   Injected via UART commands '0'..'5'.
+ *   Stored alongside every EVAL.csv row for offline confusion matrix.
+*/
+typedef enum {
+    SNX_LABEL_NORMAL        = 0,
+    SNX_LABEL_IMPACT        = 1,
+    SNX_LABEL_IMBALANCE     = 2,
+    SNX_LABEL_LOOSE_MOUNT   = 3,
+    SNX_LABEL_MISALIGNMENT  = 4,
+    SNX_LABEL_BEARING_FAULT = 5
+} SNX_FaultLabel;
+
 typedef struct {
     uint32_t timestamp_ms;
     float    mse_score;
@@ -60,10 +78,11 @@ typedef struct {
     uint8_t    window_ready;
 
     float      feat[SNX_FEATURE_DIM];
-    float      feat_norm[SNX_FEATURE_DIM]; 
+    float      feat_norm[SNX_FEATURE_DIM];
 
     float      calib_mse_sum;
     float      calib_mse_sq_sum;
+    float      calib_mse[SNX_CALIBRATION_WINDOWS];
     uint32_t   calib_count;
     uint32_t   calib_start_tick;
 
@@ -83,49 +102,25 @@ typedef struct {
     uint8_t    flag_sd_error;
     uint8_t    flag_imu_error;
 
+
+    SNX_FaultLabel current_label;       /**< Ground-truth label (Obj 1) */
+    uint32_t       train_session_id;    /**< Incremented per TRAIN entry (Obj 4) */
+    uint32_t       monitor_window_id;   /**< Sequential window counter for EVAL/PROFILE */
+
     uint8_t current_ground_truth;
 
 } SNX_Supervisor;
 
-extern AE_Model      g_ae;
-extern NormStats     g_norm;
+extern AE_Model       g_ae;
+extern NormStats      g_norm;
 extern SNX_Supervisor g_sv;
 
-/**
- * @brief Initialise supervisor, model, and normalisation stats.
- *        Call once after HAL_Init, before the main loop.
- */
 void Supervisor_Init(void);
-
-/**
- * @brief Main supervisor tick. Call every SNX_TICK_RATE_MS from main loop.
- */
 void Supervisor_Tick(void);
-
-/**
- * @brief Feed one IMU sample into the window buffer.
- *        Typically called from a timer ISR or DMA callback at SNX_SAMPLE_RATE_HZ.
- */
 void Supervisor_FeedSample(const IMU_Sample *s);
-
-/**
- * @brief Process UART command character. Call from UART RX ISR or polling loop.
- */
 void Supervisor_HandleCommand(uint8_t cmd);
-
-/**
- * @brief Force a state transition (for UART commands / testing).
- */
 void Supervisor_ForceState(SNX_State new_state);
-
-/**
- * @brief Set anomaly threshold manually (from 'H' UART command).
- */
 void Supervisor_SetThreshold(float threshold);
-
-/**
- * @brief Print current status over UART2 (called by 'S' command).
- */
 void Supervisor_PrintStatus(void);
 
 #ifdef __cplusplus

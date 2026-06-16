@@ -129,7 +129,6 @@ void Error_Handler(void)
     DBG_Printf("[FATAL] Error_Handler!\r\n");
     while (1) {}
 }
-
 void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -168,6 +167,7 @@ void SystemClock_Config(void)
         Error_Handler();
     }
 }
+
 
 #ifdef USE_FULL_ASSERT
 void assert_failed(uint8_t *file, uint32_t line)

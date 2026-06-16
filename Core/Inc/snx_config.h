@@ -23,74 +23,79 @@
 extern "C" {
 #endif
 
-
 #define SNX_NODE_ID                 0x01u   /* Unique per board (0x01 / 0x02 / 0x03) */
 #define SNX_FW_VERSION_MAJOR        3
-#define SNX_FW_VERSION_MINOR        0
+#define SNX_FW_VERSION_MINOR        1       /* bumped for research-logging additions  */
 
 #define SNX_SAMPLE_RATE_HZ          200u    /* MPU-6050 ODR                          */
 #define SNX_WINDOW_SIZE             50u     /* Samples per feature window            */
 #define SNX_WINDOW_STRIDE           25u     /* 50 % overlap                          */
 #define SNX_FEATURE_DIM             10u     /* Features extracted per window         */
-                                            /* [ax_mean,ax_std,ax_rms,              */
-                                            /*  ay_mean,ay_std,ay_rms,              */
-                                            /*  az_mean,az_std,az_rms,              */
-                                            /*  resultant_peak]                      */
 
-
-#define SNX_AE_INPUT_DIM            10u     /* = SNX_FEATURE_DIM                     */
-#define SNX_AE_H1_DIM               8u     /* Encoder hidden layer                  */
-#define SNX_AE_LATENT_DIM           4u     /* Bottleneck (latent space)             */
-#define SNX_AE_H2_DIM               8u     /* Decoder hidden layer                  */
-#define SNX_AE_OUTPUT_DIM           10u     /* Reconstruction output                 */
-
-/* Total weight count (for static allocation):
-   enc_W1: 10*8=80, enc_b1: 8, enc_W2: 8*4=32, enc_b2: 4
-   dec_W1:  4*8=32, dec_b1: 8, dec_W2: 8*10=80, dec_b2: 10
-   Total = 254 weights + 30 biases = 284 scalars                                    */
+#define SNX_AE_INPUT_DIM            10u
+#define SNX_AE_H1_DIM               8u
+#define SNX_AE_LATENT_DIM           4u
+#define SNX_AE_H2_DIM               8u
+#define SNX_AE_OUTPUT_DIM           10u
 
 #define SNX_LEARNING_RATE           0.005f
 #define SNX_MOMENTUM                0.85f
 #define SNX_L2_LAMBDA               1e-4f
-#define SNX_MAX_EPOCHS              10u     /* Epochs per online training batch      */
-#define SNX_TRAIN_BATCH_SIZE        16u     /* Windows per training batch            */
-#define SNX_MIN_NORMAL_SAMPLES      64u     /* Minimum normal windows before train   */
+#define SNX_MAX_EPOCHS              10u
+#define SNX_TRAIN_BATCH_SIZE        16u
+#define SNX_MIN_NORMAL_SAMPLES      64u
 
+#define SNX_ANOMALY_THRESHOLD       0.025f
+#define SNX_ANOMALY_STREAK_LIMIT    5u
+#define SNX_CALIBRATION_WINDOWS     100u
+#define SNX_THRESHOLD_SIGMA_MULT    3.0f
 
-#define SNX_ANOMALY_THRESHOLD       0.025f  /* MSE reconstruction error threshold    */
-                                            /* Tune after calibration run            */
-#define SNX_ANOMALY_STREAK_LIMIT    5u      /* Consecutive anomalies → alert         */
-#define SNX_CALIBRATION_WINDOWS     100u    /* Normal windows used to set threshold  */
-#define SNX_THRESHOLD_SIGMA_MULT    3.0f    /* threshold = mean + k*sigma            */
+#define SNX_NORM_ALPHA              0.01f
 
+#define SNX_SD_RAW_FILENAME         "RAWIMU.CSV"
+#define SNX_SD_LOG_FILENAME         "ANOMLOG.CSV"
+#define SNX_SD_STATS_FILENAME       "RUNSTAT.CSV"
+#define SNX_SD_WEIGHTS_FILENAME     "WEIGHTS.BIN"
 
-#define SNX_NORM_ALPHA              0.01f   /* EMA coefficient for running mean/var  */
+// Research logging files
+#define SNX_SD_EVAL_FILENAME        "EVAL.CSV"
+#define SNX_SD_LATENT_FILENAME      "LATENT.CSV"
+#define SNX_SD_TRAIN_FILENAME       "TRAIN.CSV"
+#define SNX_SD_CALIB_FILENAME       "CALIB.CSV"
+#define SNX_SD_PROFILE_FILENAME     "PROFILE.CSV"
 
-
-#define SNX_SD_RAW_FILENAME     "RAWIMU.CSV"
-#define SNX_SD_LOG_FILENAME     "ANOMLOG.CSV"
-#define SNX_SD_STATS_FILENAME   "RUNSTAT.CSV"
-#define SNX_SD_WEIGHTS_FILENAME  "WEIGHTS.bin"
-#define SNX_SD_SYNC_INTERVAL_MS     5000u   /* Flush to SD every N ms               */
-#define SNX_SD_MAGIC                0x534E5833u  /* 'SNX3'                          */
-
+#define SNX_SD_SYNC_INTERVAL_MS     5000u
+#define SNX_SD_MAGIC                0x534E5833u  /* 'SNX3' */
 
 #define SNX_UART_TX_TIMEOUT_MS      10u
-#define SNX_DEBUG_PRINT_INTERVAL_MS 1000u   /* Periodic stats print interval         */
+#define SNX_DEBUG_PRINT_INTERVAL_MS 1000u
 
+#define SNX_CALIBRATION_TIMEOUT_MS  60000u
+#define SNX_TICK_RATE_MS            10u
 
-#define SNX_CALIBRATION_TIMEOUT_MS  60000u  /* Max time in CALIBRATE state (1 min)  */
-#define SNX_TICK_RATE_MS            10u     /* Supervisor FSM tick period            */
+#define SNX_CPU_MHZ                 168u    /* STM32F405 @ 168 MHz                   */
 
+#define SNX_CMD_CALIBRATE           'C'
+#define SNX_CMD_TRAIN               'T'
+#define SNX_CMD_STATUS              'S'
+#define SNX_CMD_RESET_WEIGHTS       'R'
+#define SNX_CMD_SAVE_WEIGHTS        'W'
+#define SNX_CMD_LOAD_WEIGHTS        'L'
+#define SNX_CMD_SET_THRESHOLD       'H'
+#define SNX_CMD_TOGGLE_RAW_LOG      'N'
 
-#define SNX_CMD_CALIBRATE           'C'     /* (Re)start calibration phase           */
-#define SNX_CMD_TRAIN               'T'     /* Force one training pass               */
-#define SNX_CMD_STATUS              'S'     /* Print current status                  */
-#define SNX_CMD_RESET_WEIGHTS       'R'     /* Xavier re-initialise weights          */
-#define SNX_CMD_SAVE_WEIGHTS        'W'     /* Save weights to SD                    */
-#define SNX_CMD_LOAD_WEIGHTS        'L'     /* Load weights from SD                  */
-#define SNX_CMD_SET_THRESHOLD       'H'     /* Manually set anomaly threshold        */
-#define SNX_CMD_TOGGLE_RAW_LOG      'N'     /* Toggle raw IMU CSV logging            */
+/*
+ *   '0' → NORMAL          '3' → LOOSE_MOUNT
+ *   '1' → IMPACT          '4' → MISALIGNMENT
+ *   '2' → IMBALANCE       '5' → BEARING_FAULT
+ *
+ */
+#define SNX_CMD_LABEL_NORMAL        '0'
+#define SNX_CMD_LABEL_IMPACT        '1'
+#define SNX_CMD_LABEL_IMBALANCE     '2'
+#define SNX_CMD_LABEL_LOOSE_MOUNT   '3'
+#define SNX_CMD_LABEL_MISALIGNMENT  '4'
+#define SNX_CMD_LABEL_BEARING_FAULT '5'
 
 #ifdef __cplusplus
 }
