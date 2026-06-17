@@ -303,11 +303,3 @@ SensiNerveX_Anomaly/
 ```
 
 ---
-
-## Version History
-
-| Version | Change                                                          |
-|---------|-----------------------------------------------------------------|
-| v1.x    | ESP32-S3, Wi-Fi federation, 3-class gesture classification      |
-| v2.0    | STM32F405, UART3 federation, 3-class vibration classification   |
-| v3.0    | STM32F405, **anomaly detection** via sparse autoencoder, no fed |
