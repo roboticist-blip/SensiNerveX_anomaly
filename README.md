@@ -481,6 +481,7 @@ SensiNerveX_anomaly/
 ```
 
 ---
+<<<<<<< HEAD
 
 ## Design Notes -- Why One Shared Autoencoder, Not One Per State
 
@@ -529,3 +530,5 @@ A normal-SRAM budget check (`SEGMENT`'s ~24 KB scratch arrays against your
 actual linker `.map` output) is also recommended before field deployment.
 
 ---
+=======
+>>>>>>> 853588f52483e2c22f2f556f21c210cd58962a94
