@@ -1,6 +1,6 @@
 /**
  * @file    main.c
- * @brief   SensiNerveX v3.0 — Vibration Anomaly Detection
+ * @brief   SensiNerveX v3.2 — Vibration Anomaly Detection
  *          WeAct STM32F405RGT6 @ 168 MHz
  *
  * Peripheral ownership:
@@ -15,10 +15,23 @@
  *   2. DWT enable
  *   3. Peripheral inits (I2C1, SDIO, UART2, TIM6)
  *   4. FatFS link (MX_FATFS_Init)
- *   5. Supervisor_Init() → f_mount → weight load → AE init
+ *   5. Supervisor_Init() → f_mount → weight/baseline load → AE init
  *   6. IMU_Init()
  *   7. TIM6 start → 200 Hz sampling flag
  *   8. Main loop: sample → supervisor tick → UART command poll
+ *
+ *   'G' begins a one-time commissioning recording; run the machine
+ *   through one full representative operating cycle, then send 'D'.
+ *   The supervisor automatically detects distinct stable operating
+ *   states in that recording and calibrates a baseline for each one.
+ *   This is the recommended commissioning path for any machine with
+ *   more than one legitimate operating state (idle/spin-up/steady-run/
+ *   etc.) — the original 'C' single-shot path remains available for
+ *   quick bench testing with a single operating condition.
+ *
+ *   While a numeric value is pending (after 'H' or 'M'), the raw [RX]
+ *   byte echo below is suppressed to avoid per-digit console noise
+ *   during commissioning entry — see g_sv.pending_numeric_cmd.
  */
 
 #include "main.h"
@@ -79,8 +92,10 @@ int main(void)
     DBG_Printf("[MAIN] TIM6 started @ %u Hz\r\n", SNX_SAMPLE_RATE_HZ);
 
     DBG_Printf("[MAIN] UART commands:\r\n");
-    DBG_Printf("  C=Calibrate  T=Train  S=Status  R=ResetWeights\r\n");
-    DBG_Printf("  W=Save  L=Load  H=SetThreshold  N=ToggleRawLog\r\n\r\n");
+    DBG_Printf("  G=BeginCommissioning  D=DoneRecording (use these first)\r\n");
+    DBG_Printf("  C=QuickCalibrate(legacy,single-state)  T=Train  S=Status\r\n");
+    DBG_Printf("  R=ResetWeights  W=Save  L=Load\r\n");
+    DBG_Printf("  H=SetActiveBaselineThreshold  M=SetMaxStates  N=ToggleRawLog\r\n\r\n");
 
 
     while (1) {
@@ -97,7 +112,9 @@ int main(void)
 
         uint8_t cmd = 0;
         if (DBG_RxPoll(&cmd)) {
-            DBG_Printf("[RX] 0x%02X '%c'\r\n", cmd, cmd);
+            if (g_sv.pending_numeric_cmd == 0) {
+                DBG_Printf("[RX] 0x%02X '%c'\r\n", cmd, cmd);
+            }
             Supervisor_HandleCommand(cmd);
         }
 

@@ -25,7 +25,7 @@ extern "C" {
 
 #define SNX_NODE_ID                 0x01u   /* Unique per board (0x01 / 0x02 / 0x03) */
 #define SNX_FW_VERSION_MAJOR        3
-#define SNX_FW_VERSION_MINOR        1       /* bumped for research-logging additions  */
+#define SNX_FW_VERSION_MINOR        2       /* bumped for research-logging additions  */
 
 #define SNX_SAMPLE_RATE_HZ          200u    /* MPU-6050 ODR                          */
 #define SNX_WINDOW_SIZE             50u     /* Samples per feature window            */
@@ -75,6 +75,16 @@ extern "C" {
 
 #define SNX_CPU_MHZ                 168u    /* STM32F405 @ 168 MHz                   */
 
+#define SNX_MAX_STATES_CEILING       16u
+#define SNX_STABILITY_HOLD_WINDOWS   20u
+#define SNX_STABILITY_EPS            0.05f
+#define SNX_ENERGY_FEATURE_IDX       9u
+#define SNX_CYCLE_MAX_SAMPLES        120000u
+#define SNX_CYCLE_AUTO_TIMEOUT_MS    600000u   /* 10 min safety stop if 'D' never sent */
+#define SNX_SD_CYCLE_FILENAME        "CYCLE.BIN"
+#define SNX_SD_BASELINES_FILENAME    "BASELINE.BIN"
+#define SNX_SD_CONFIG_FILENAME       "SNXCFG.BIN" 
+
 #define SNX_CMD_CALIBRATE           'C'
 #define SNX_CMD_TRAIN               'T'
 #define SNX_CMD_STATUS              'S'
@@ -83,6 +93,10 @@ extern "C" {
 #define SNX_CMD_LOAD_WEIGHTS        'L'
 #define SNX_CMD_SET_THRESHOLD       'H'
 #define SNX_CMD_TOGGLE_RAW_LOG      'N'
+#define SNX_CMD_START_RECORD        'G'   /* begin commissioning capture       */
+#define SNX_CMD_DONE_RECORD         'D'   /* operator signals cycle complete   */
+#define SNX_CMD_SET_MAX_STATES      'M'   /* followed by ASCII digits + Enter  */
+
 
 /*
  *   '0' → NORMAL          '3' → LOOSE_MOUNT

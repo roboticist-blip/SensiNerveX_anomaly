@@ -1,11 +1,12 @@
 /**
  * @file    storage.c
- * @brief   SD card storage via FatFS for SensiNerveX Anomaly Detection v3.1
+ * @brief   SD card storage via FatFS for SensiNerveX Anomaly Detection v3.2
  *
  * Assumes FatFS is configured with:
  *   FF_FS_EXFAT = 0, FF_USE_FASTSEEK = 1, _VOLUMES = 1
  *
- * SPI1 CS is managed by FatFS disk driver (stm32_adafruit_sd.c or similar).
+ * SDIO 4-bit (PC8-12, PD2) is managed by FatFS disk driver
+ * (sdio_diskio.c) with DMA2.
  *
  * Research additions (v3.1 — Objectives 2-6):
  *   Opens five additional CSV files at init time:
@@ -14,6 +15,15 @@
  *   All writes use a single shared line buffer (no dynamic allocation).
  *   All new file handles are flushed together in Storage_Sync().
  *   All new file handles are closed together in Storage_Deinit().
+ *
+ *   CYCLE.BIN     — raw IMU stream captured during SNX_STATE_RECORD.
+ *                   Conditionally open (only during RECORD), guarded by
+ *                   s_cycle_open — unlike the eight files above, which
+ *                   are always open for the device's operational
+ *                   lifetime after Storage_Init().
+ *   BASELINE.BIN  — per-operating-state centroid + threshold, written
+ *                   once by SEGMENT at the end of commissioning.
+ *   SNXCFG.BIN    — single persisted byte: operator's max_states choice.
  */
 
 #include "storage.h"
@@ -55,15 +65,11 @@ static FIL    s_ftrain;     /* TRAIN.CSV     */
 static FIL    s_fcalib;     /* CALIB.CSV     */
 static FIL    s_fprofile;   /* PROFILE.CSV   */
 
+static FIL     s_fcycle;
+static uint8_t s_cycle_open = 0;
+
 static uint8_t s_mounted = 0;
 
-/*
- * Shared line buffer.
- * Worst-case row: LATENT.CSV has 1 uint32 + 4 floats + 1 uint8 → ≈ 80 chars.
- * 256 bytes is sufficient for all formats.
- * No dynamic allocation; single static buffer — all logging is synchronous
- * (called from the FSM tick, never from ISR context).
- */
 static char s_linebuf[256];
 
 static SNX_Status open_csv(FIL *fh, const char *fname, const char *header)
@@ -139,7 +145,7 @@ void Storage_Sync(void)
     f_sync(&s_ftrain);
     f_sync(&s_fcalib);
     f_sync(&s_fprofile);
-}
+    if (s_cycle_open) f_sync(&s_fcycle);   }
 
 void Storage_Deinit(void)
 {
@@ -152,6 +158,10 @@ void Storage_Deinit(void)
     f_close(&s_ftrain);
     f_close(&s_fcalib);
     f_close(&s_fprofile);
+    if (s_cycle_open) {                     
+        f_close(&s_fcycle);
+        s_cycle_open = 0;
+    }
     f_mount(NULL, "", 0);
     s_mounted = 0;
 }
@@ -200,13 +210,8 @@ void Storage_Log_Stats(uint32_t windows, uint32_t anomalies,
 
 
 /*
- * Objective 2 — EVAL.CSV
+ * EVAL.CSV
  * Row: window_id,timestamp_ms,mse,ground_truth_label,prediction
- *
- * 'prediction' is the hard binary decision: 1 if mse > threshold else 0.
- * Combined with ground_truth_label this row is sufficient to compute:
- *   TP, TN, FP, FN → precision, recall, F1, confusion matrix.
- * For ROC/AUC the raw 'mse' column serves as the continuous score.
  */
 void Storage_Log_Eval(uint32_t window_id, uint32_t timestamp,
                       float mse, uint8_t label, uint8_t prediction)
@@ -223,7 +228,7 @@ void Storage_Log_Eval(uint32_t window_id, uint32_t timestamp,
 }
 
 /*
- * Objective 3 — LATENT.CSV
+ * LATENT.CSV
  * Row: timestamp_ms,z1,z2,z3,z4,ground_truth_label
  *
  * z[] points to g_ae.act.z[AE_Z] immediately after AE_Forward() returns.
@@ -244,11 +249,8 @@ void Storage_Log_Latent(uint32_t timestamp,
 }
 
 /*
- * Objective 4 — TRAIN.CSV
+ * TRAIN.CSV
  * Row: session_id,epoch,loss
- *
- * session_id increments each time the TRAIN FSM state is entered.
- * loss is the mean per-sample MSE for that epoch over the training batch.
  */
 void Storage_Log_Train(uint32_t session_id, uint32_t epoch, float loss)
 {
@@ -262,13 +264,8 @@ void Storage_Log_Train(uint32_t session_id, uint32_t epoch, float loss)
 }
 
 /*
- * Objective 5 — CALIB.CSV
+ * CALIB.CSV
  * Row: window_id,mse
- *
- * window_id is 1-based (first calibration window = 1).
- * This file is written only during SNX_STATE_CALIBRATE.
- * Sufficient to reproduce the calibration MSE distribution figure and
- * overlay the derived threshold = mean + 3σ.
  */
 void Storage_Log_Calibration(uint32_t window_id, float mse)
 {
@@ -281,7 +278,7 @@ void Storage_Log_Calibration(uint32_t window_id, float mse)
 }
 
 /*
- * Objective 6 — PROFILE.CSV
+ * PROFILE.CSV
  * Row: window_id,cycles,time_us
  *
  * cycles    = DWT->CYCCNT elapsed across AE_Forward() only.
@@ -317,6 +314,12 @@ void Storage_Log_Profile(uint32_t window_id,
  *   float  threshold      4
  *   ─────────────────────────
  *   Total                 1120 bytes
+ *
+ * Note: the trailing 'threshold' field is the legacy single-baseline
+ * value. It is still written/read for backward compatibility with the
+ * manual 'C'/CALIBRATE bench path, but handle_monitor() under the
+ * multi-baseline commissioning flow no longer reads it — see
+ * BASELINE.BIN / SNX_Baseline instead.
  */
 SNX_Status Storage_SaveWeights(const AE_Model *m, const NormStats *ns)
 {
@@ -463,5 +466,180 @@ SNX_Status Storage_LoadThreshold(float *threshold)
     if (br != sizeof(float) || *threshold <= 0.0f) {
         return SNX_ERROR;
     }
+    return SNX_OK;
+}
+
+
+SNX_Status Storage_OpenCycleRecording(void)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FRESULT fr = f_open(&s_fcycle, SNX_SD_CYCLE_FILENAME,
+                         FA_CREATE_ALWAYS | FA_WRITE);
+    if (fr != FR_OK) {
+        DBG_Printf("[SD] OpenCycleRecording failed: %d\r\n", fr);
+        return SNX_ERROR;
+    }
+    s_cycle_open = 1;
+    DBG_Printf("[SD] %s opened for commissioning capture.\r\n",
+               SNX_SD_CYCLE_FILENAME);
+    return SNX_OK;
+}
+
+void Storage_WriteCycleSample(const IMU_Sample *s)
+{
+    if (!s_mounted || !s_cycle_open) return;
+    UINT bw;
+    f_write(&s_fcycle, s, sizeof(IMU_Sample), &bw);
+    if (bw != sizeof(IMU_Sample)) {
+        DBG_Printf("[SD] CYCLE.BIN write short (%u/%u bytes)\r\n",
+                   (unsigned)bw, (unsigned)sizeof(IMU_Sample));
+    }
+}
+
+void Storage_CloseCycleRecording(void)
+{
+    if (!s_cycle_open) return;
+    f_sync(&s_fcycle);
+    f_close(&s_fcycle);
+    s_cycle_open = 0;
+    DBG_Printf("[SD] %s closed.\r\n", SNX_SD_CYCLE_FILENAME);
+}
+
+SNX_Status Storage_ReadCycleSample(uint32_t index, IMU_Sample *out)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_CYCLE_FILENAME, FA_READ);
+    if (fr != FR_OK) return SNX_ERROR;
+
+    FSIZE_t offset = (FSIZE_t)index * sizeof(IMU_Sample);
+    if (offset >= f_size(&f)) {
+        f_close(&f);
+        return SNX_ERROR;
+    }
+
+    fr = f_lseek(&f, offset);
+    if (fr != FR_OK) {
+        f_close(&f);
+        return SNX_ERROR;
+    }
+
+    UINT br;
+    fr = f_read(&f, out, sizeof(IMU_Sample), &br);
+    f_close(&f);
+
+    if (fr != FR_OK || br != sizeof(IMU_Sample)) return SNX_ERROR;
+    return SNX_OK;
+}
+
+uint32_t Storage_GetCycleSampleCount(void)
+{
+    if (!s_mounted) return 0;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_CYCLE_FILENAME, FA_READ);
+    if (fr != FR_OK) return 0;
+
+    uint32_t n = (uint32_t)(f_size(&f) / sizeof(IMU_Sample));
+    f_close(&f);
+    return n;
+}
+
+#define SNX_BASELINE_MAGIC 0x534E4258u  /* 'SNXB' */
+
+SNX_Status Storage_SaveBaselines(const SNX_Baseline *baselines, uint8_t count)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_BASELINES_FILENAME, FA_CREATE_ALWAYS | FA_WRITE);
+    if (fr != FR_OK) {
+        DBG_Printf("[SD] SaveBaselines open failed: %d\r\n", fr);
+        return SNX_ERROR;
+    }
+
+    uint32_t magic = SNX_BASELINE_MAGIC;
+    UINT bw;
+    f_write(&f, &magic, sizeof(magic), &bw);
+    f_write(&f, &count, sizeof(count), &bw);
+    f_write(&f, baselines, (UINT)count * sizeof(SNX_Baseline), &bw);
+
+    f_close(&f);
+    DBG_Printf("[SD] Saved %u baseline(s) to %s\r\n",
+               (unsigned)count, SNX_SD_BASELINES_FILENAME);
+    return SNX_OK;
+}
+
+SNX_Status Storage_LoadBaselines(SNX_Baseline *baselines, uint8_t *count_out)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_BASELINES_FILENAME, FA_READ);
+    if (fr != FR_OK) {
+        DBG_Printf("[SD] LoadBaselines: file not found\r\n");
+        return SNX_ERROR;
+    }
+
+    uint32_t magic;
+    uint8_t  count;
+    UINT br;
+    f_read(&f, &magic, sizeof(magic), &br);
+    f_read(&f, &count, sizeof(count), &br);
+
+    if (magic != SNX_BASELINE_MAGIC || count == 0 ||
+        count > SNX_MAX_STATES_CEILING) {
+        DBG_Printf("[SD] LoadBaselines: bad header (magic=0x%08lX count=%u)\r\n",
+                   (unsigned long)magic, (unsigned)count);
+        f_close(&f);
+        return SNX_ERROR;
+    }
+
+    f_read(&f, baselines, (UINT)count * sizeof(SNX_Baseline), &br);
+    f_close(&f);
+
+    if (br != (UINT)count * sizeof(SNX_Baseline)) {
+        DBG_Printf("[SD] LoadBaselines: short read\r\n");
+        return SNX_ERROR;
+    }
+
+    *count_out = count;
+    DBG_Printf("[SD] Loaded %u baseline(s)\r\n", (unsigned)count);
+    return SNX_OK;
+}
+
+SNX_Status Storage_SaveMaxStates(uint8_t max_states)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_CONFIG_FILENAME, FA_CREATE_ALWAYS | FA_WRITE);
+    if (fr != FR_OK) return SNX_ERROR;
+
+    UINT bw;
+    f_write(&f, &max_states, sizeof(max_states), &bw);
+    f_close(&f);
+    return SNX_OK;
+}
+
+SNX_Status Storage_LoadMaxStates(uint8_t *max_states_out)
+{
+    if (!s_mounted) return SNX_ERROR;
+
+    FIL f;
+    FRESULT fr = f_open(&f, SNX_SD_CONFIG_FILENAME, FA_READ);
+    if (fr != FR_OK) return SNX_ERROR;
+
+    UINT br;
+    uint8_t val;
+    fr = f_read(&f, &val, sizeof(val), &br);
+    f_close(&f);
+
+    if (fr != FR_OK || br != sizeof(val) || val == 0 || val > SNX_MAX_STATES_CEILING) {
+        return SNX_ERROR;
+    }
+    *max_states_out = val;
     return SNX_OK;
 }

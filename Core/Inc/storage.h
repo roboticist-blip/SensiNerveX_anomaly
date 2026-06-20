@@ -15,7 +15,7 @@
  *   CALIB.CSV     — per-calib-window: window_id, mse
  *   PROFILE.CSV   — per-window: window_id, cycles, time_us
  *
- * Binary weight file format (WEIGHTS.BIN):
+ * Binary weight file format (WEIGHTS.BIN) — UNCHANGED from v3.1:
  *   [0x00] uint32  magic     = 0x534E5833 ('SNX3')
  *   [0x04] uint32  version   = (MAJOR<<16)|MINOR
  *   [0x08] uint32  n_weights = AE_WEIGHT_FLAT_SIZE
@@ -25,7 +25,18 @@
  *   [...]  float[] norm_var  = SNX_FEATURE_DIM floats
  *   [...]  uint32  norm_n    = NormStats.n_updates
  *   [...]  uint32  norm_init = NormStats.is_initialised
- *   [...]  float   threshold = anomaly threshold value
+ *   [...]  float   threshold = legacy single-threshold value (unused
+ *                               once baselines are active, kept for
+ *                               the manual 'C'/CALIBRATE bench path)
+ 
+ *   CYCLE.BIN     — raw IMU_Sample stream captured during RECORD state
+ *                   (append-only during capture, random-access read
+ *                   during SEGMENT replay)
+ *   BASELINE.BIN  — array of SNX_Baseline (centroid + threshold) per
+ *                   detected operating state, written by SEGMENT,
+ *                   loaded at boot
+ *   SNXCFG.BIN    — single byte: operator-configured max_states ceiling
+ *                   for this specific machine
  */
 
 #ifndef STORAGE_H
@@ -65,7 +76,7 @@ SNX_Status Storage_LoadThreshold(float *threshold);
  * @param timestamp   HAL_GetTick() at window completion
  * @param mse         Reconstruction MSE from AE_Forward()
  * @param label       Ground-truth SNX_FaultLabel (0 = NORMAL)
- * @param prediction  1 if mse > anomaly_threshold, else 0
+ * @param prediction  1 if mse > active baseline's threshold, else 0
  *
  * Row format: window_id,timestamp_ms,mse,ground_truth_label,prediction
  */
@@ -98,7 +109,10 @@ void Storage_Log_Train(uint32_t session_id, uint32_t epoch, float loss);
 /**
  * @brief Append one row to CALIB.csv.
  *
- * @param window_id  Calibration window index (1-based)
+ * @param window_id  Calibration window index (1-based, RESETS per
+ *                   plateau when called from SEGMENT's per-plateau
+ *                   calibration — see calibrate_one_plateau() in
+ *                   supervisor.c)
  * @param mse        Reconstruction MSE during calibration
  *
  * Row format: window_id,mse
@@ -116,6 +130,68 @@ void Storage_Log_Calibration(uint32_t window_id, float mse);
  */
 void Storage_Log_Profile(uint32_t window_id,
                          uint32_t cycles, float time_us);
+
+/**
+ * @brief Open CYCLE.BIN for writing (truncates any previous recording).
+ *        Call once when entering SNX_STATE_RECORD.
+ */
+SNX_Status Storage_OpenCycleRecording(void);
+
+/**
+ * @brief Append one raw IMU sample to CYCLE.BIN.
+ *        Called from Supervisor_FeedSample() while in SNX_STATE_RECORD.
+ */
+void Storage_WriteCycleSample(const IMU_Sample *s);
+
+/**
+ * @brief Close CYCLE.BIN. Called on 'D' command, buffer cap, or
+ *        SNX_CYCLE_AUTO_TIMEOUT_MS.
+ */
+void Storage_CloseCycleRecording(void);
+
+/**
+ * @brief Random-access read of one sample from CYCLE.BIN by index.
+ *        Used during SNX_STATE_SEGMENT replay. Opens/seeks/reads/closes
+ *        per call — SEGMENT is a one-time commissioning pass, not a
+ *        real-time path, so per-call open/close overhead is acceptable.
+ * @return SNX_OK on success, SNX_ERROR if index out of range or I/O fails.
+ */
+SNX_Status Storage_ReadCycleSample(uint32_t index, IMU_Sample *out);
+
+/**
+ * @return Number of samples currently stored in CYCLE.BIN
+ *         (file size / sizeof(IMU_Sample)). Returns 0 if not mounted
+ *         or file does not exist.
+ */
+uint32_t Storage_GetCycleSampleCount(void);
+
+/**
+ * @brief Save the full baseline array to BASELINE.BIN.
+ * @param baselines  Array of `count` SNX_Baseline entries
+ * @param count      Number of valid baselines (== g_sv.baseline_count)
+ */
+SNX_Status Storage_SaveBaselines(const SNX_Baseline *baselines, uint8_t count);
+
+/**
+ * @brief Load baselines from BASELINE.BIN.
+ * @param baselines  Output array of at least SNX_MAX_STATES_CEILING slots
+ * @param count_out  Populated with how many were loaded
+ * @return SNX_ERROR if file missing, header invalid, or short read —
+ *         caller should treat this as "commissioning required."
+ */
+SNX_Status Storage_LoadBaselines(SNX_Baseline *baselines, uint8_t *count_out);
+
+/**
+ * @brief Persist operator-configured max_states so it survives reboot.
+ */
+SNX_Status Storage_SaveMaxStates(uint8_t max_states);
+
+/**
+ * @brief Load persisted max_states.
+ * @return SNX_ERROR if file missing or value out of range — caller
+ *         should fall back to a sensible default (SNX_MAX_STATES_CEILING).
+ */
+SNX_Status Storage_LoadMaxStates(uint8_t *max_states_out);
 
 #ifdef __cplusplus
 }

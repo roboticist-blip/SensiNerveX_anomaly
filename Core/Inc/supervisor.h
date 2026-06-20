@@ -6,13 +6,23 @@
  *   IDLE        → Waiting for start command or power-on auto-start
  *   COLLECT     → Buffering IMU windows from MPU-6050
  *   CALIBRATE   → Accumulating normal-condition windows, computing
- *                 threshold = mean_mse + k*sigma_mse
+ *                 threshold = median + 10*MAD (manual single-shot path,
+ *                 kept for quick bench recalibration — see note in
+ *                 supervisor.c)
  *   MONITOR     → Real-time anomaly detection (inference only)
  *   TRAIN       → Online training pass on buffered normal windows
  *   FALLBACK    → SD error or fatal sensor fault; UART alert only
+ *   RECORD      → Streaming raw IMU to CYCLE.BIN during a
+ *                 one-time commissioning run
+ *   SEGMENT     → Offline-style replay of CYCLE.BIN, plateau
+ *                 detection, and per-plateau calibration
  *
  * Transitions:
- *   IDLE       → COLLECT   : auto on boot, or 'C' command
+ *   IDLE       → COLLECT   : 'C' command (manual single-shot path)
+ *   IDLE       → RECORD    : 'G' command (commissioning — recommended path)
+ *   RECORD     → SEGMENT   : 'D' command, or SNX_CYCLE_AUTO_TIMEOUT_MS, or buffer cap
+ *   SEGMENT    → MONITOR   : plateau detection + per-plateau calibration complete
+ *   SEGMENT    → FALLBACK  : no stable plateau found, or recording too short
  *   COLLECT    → CALIBRATE : window buffer primed (SNX_MIN_NORMAL_SAMPLES)
  *   CALIBRATE  → MONITOR   : SNX_CALIBRATION_WINDOWS collected OR timeout
  *   MONITOR    → TRAIN     : anomaly_streak == 0 && train_batch full
@@ -25,6 +35,16 @@
  *   - SNX_FaultLabel enum + current_label field for ground-truth injection
  *   - UART '0'..'5' commands update current_label in real-time
  *   - train_session_id incremented each time TRAIN state is entered
+ *
+ * Multi-baseline commissioning (v3.2):
+ *   - SNX_Baseline: per-operating-state feature centroid + threshold
+ *   - g_sv.baselines[]: static array, populated by SEGMENT, persisted to
+ *     BASELINE.BIN, reloaded at boot
+ *   - g_sv.max_states: operator-configurable (1..SNX_MAX_STATES_CEILING),
+ *     persisted to SNXCFG.BIN, set via 'M' command
+ *   - MONITOR performs nearest-centroid lookup before threshold compare
+ *   - 'H' (SET_THRESHOLD) now overrides the THRESHOLD OF THE CURRENTLY
+ *     ACTIVE baseline rather than a single global value
  */
 
 #ifndef SUPERVISOR_H
@@ -46,13 +66,11 @@ typedef enum {
     SNX_STATE_MONITOR   = 3,
     SNX_STATE_TRAIN     = 4,
     SNX_STATE_FALLBACK  = 5,
+    SNX_STATE_RECORD    = 6,   
+    SNX_STATE_SEGMENT   = 7,   
     SNX_STATE_COUNT
 } SNX_State;
 
-/* ── Ground-truth fault labels
- *   Injected via UART commands '0'..'5'.
- *   Stored alongside every EVAL.csv row for offline confusion matrix.
-*/
 typedef enum {
     SNX_LABEL_NORMAL        = 0,
     SNX_LABEL_IMPACT        = 1,
@@ -68,6 +86,11 @@ typedef struct {
     float    threshold;
     float    features[SNX_FEATURE_DIM];
 } AnomalyEvent;
+typedef struct {
+    float   centroid[SNX_FEATURE_DIM];
+    float   threshold;
+    uint8_t valid;
+} SNX_Baseline;
 
 typedef struct {
     SNX_State  state;
@@ -86,7 +109,7 @@ typedef struct {
     uint32_t   calib_count;
     uint32_t   calib_start_tick;
 
-    float      anomaly_threshold;
+    float      anomaly_threshold;     
     uint32_t   anomaly_streak;
     uint32_t   total_anomalies;
     uint32_t   total_windows;
@@ -103,11 +126,23 @@ typedef struct {
     uint8_t    flag_imu_error;
 
 
-    SNX_FaultLabel current_label;       /**< Ground-truth label (Obj 1) */
-    uint32_t       train_session_id;    /**< Incremented per TRAIN entry (Obj 4) */
-    uint32_t       monitor_window_id;   /**< Sequential window counter for EVAL/PROFILE */
+    SNX_FaultLabel current_label;      
+    uint32_t       train_session_id;    
+    uint32_t       monitor_window_id;   
 
     uint8_t current_ground_truth;
+
+    SNX_Baseline baselines[SNX_MAX_STATES_CEILING]; 
+    uint8_t      baseline_count;                     
+    uint8_t      active_baseline_idx;                 
+    uint8_t      max_states;                           
+
+    uint32_t     cycle_sample_count;    
+    uint32_t     record_start_tick;
+
+    uint8_t  pending_numeric_cmd;         
+    char     numeric_linebuf[16];
+    uint8_t  numeric_linelen;
 
 } SNX_Supervisor;
 
@@ -122,6 +157,8 @@ void Supervisor_HandleCommand(uint8_t cmd);
 void Supervisor_ForceState(SNX_State new_state);
 void Supervisor_SetThreshold(float threshold);
 void Supervisor_PrintStatus(void);
+
+void Supervisor_SetMaxStates(uint8_t n);
 
 #ifdef __cplusplus
 }
