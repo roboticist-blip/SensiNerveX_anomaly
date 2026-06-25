@@ -112,8 +112,8 @@ Window: 50 samples x 200 Hz = 250 ms per window, 50% overlap
 |--------------|-----------|--------------------------|
 | VCC          | 3.3V      |                          |
 | GND          | GND       |                          |
-| SCL          | PB6       | I2C1_SCL (AF4)           |
-| SDA          | PB7       | I2C1_SDA (AF4)           |
+| SCL          | PB8       | I2C1_SCL (AF4)           |
+| SDA          | PB9       | I2C1_SDA (AF4)           |
 | AD0          | GND       | I2C address = 0x68       |
 | INT          | --        | Not used (polling mode)  |
 

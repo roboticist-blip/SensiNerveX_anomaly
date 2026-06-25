@@ -68,8 +68,8 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**I2C1 GPIO Configuration
-    PB6     ------> I2C1_SCL
-    PB7     ------> I2C1_SDA
+    PB8     ------> I2C1_SCL
+    PB9     ------> I2C1_SDA
     */
     GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
